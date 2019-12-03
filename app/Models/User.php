@@ -75,6 +75,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Undocumented function.
+     *
+     * @return bool
+     */
+    public function isOperator()
+    {
+        return $this->authent->name === 'operator';
+    }
+
+    /**
      * Scope for filter.
      */
     public function scopeFilterOn($query, $request)

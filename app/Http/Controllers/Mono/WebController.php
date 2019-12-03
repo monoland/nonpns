@@ -115,7 +115,7 @@ class WebController extends Controller
                         ['type' => 'item', 'icon' => 'dashboard', 'text' => 'Beranda', 'to' => ['name' => 'home']],
                         
                         ['type' => 'subheader', 'text' => 'Master', 'class' => 'mt-2'],
-                        ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Pendidik', 'to' => ['name' => 'teacher']],
+                        ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Pendidik', 'to' => ['name' => 'operator-teacher']],
                     ],
                     'mobibar' => [],
                     'homebar' => [],
