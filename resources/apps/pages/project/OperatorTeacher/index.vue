@@ -106,6 +106,58 @@
                         v-model="record.education"
                     ></v-combobox>
                 </v-col>
+
+                <v-col cols="12">
+                    <v-select
+                        label="Mata Pelajaran"
+                        :items="subjects"
+                        :color="$root.theme"
+                        append-outer-icon="add"
+                        @click:append-outer="addMapel"
+                        v-model="record.subject"
+                    ></v-select>
+
+                    <v-data-table
+                        :headers="headmapel"
+                        :items="datamapel"
+                        :items-per-page="5"
+                        hide-default-footer
+                    ></v-data-table>
+                </v-col>
+
+                <v-col cols="12">
+                    <v-text-field
+                        label="Sekolah Tambahan"
+                        :color="$root.theme"
+                        append-outer-icon="add"
+                        @click:append-outer="addMapel"
+                        v-model="record.itemschool"
+                    ></v-text-field>
+
+                    <v-data-table
+                        :headers="headschool"
+                        :items="dataschool"
+                        :items-per-page="5"
+                        hide-default-footer
+                    ></v-data-table>
+                </v-col>
+
+                <v-col cols="12">
+                    <v-text-field
+                        label="Lampiran Dokumen"
+                        :color="$root.theme"
+                        append-outer-icon="add"
+                        @click:append-outer="addMapel"
+                        v-model="record.itemsdoc"
+                    ></v-text-field>
+
+                    <v-data-table
+                        :headers="headdoc"
+                        :items="datadoc"
+                        :items-per-page="5"
+                        hide-default-footer
+                    ></v-data-table>
+                </v-col>
             </v-row>
         </v-page-form>
     </v-page-wrap>
@@ -124,6 +176,14 @@ export default {
     ],
 
     data:() => ({
+        headmapel: [
+            { text: 'Nama Mapel', value: 'name' }
+        ],
+
+        headschool: [
+            { text: 'Nama Sekolah', value: 'name' }
+        ],
+
         educations: [
             { text: 'SD', value: 1 },
             { text: 'SMP', value: 2 },
@@ -174,6 +234,10 @@ export default {
             id: null,
             name: null,
         });
+    },
+
+    methods: {
+        addMapel: function() {}
     }
 };
 </script>
