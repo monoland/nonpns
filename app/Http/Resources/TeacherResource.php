@@ -37,8 +37,8 @@ class TeacherResource extends JsonResource
                 'text' => $this->merried,
             ],
             'education' => [
-                'value' => $this->education->id,
-                'text' => $this->education->name,
+                'value' => optional($this->education)->id,
+                'text' => optional($this->education)->name,
             ],
             'subjects' => SubjectList::collection($this->subjects),
             'documents' => DocumentResource::collection($this->documents),
