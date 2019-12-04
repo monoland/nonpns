@@ -41,7 +41,7 @@ class TeacherResource extends JsonResource
                 'text' => $this->education->name,
             ],
             'subjects' => SubjectList::collection($this->subjects),
-            'documents' => $this->documents,
+            'documents' => DocumentResource::collection($this->documents),
             'register' => $this->register,
             'pinned' => false,
             'updated_at' => (string) $this->updated_at,

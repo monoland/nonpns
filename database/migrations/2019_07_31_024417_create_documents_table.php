@@ -21,6 +21,10 @@ class CreateDocumentsTable extends Migration
             $table->string('path');
             $table->unsignedInteger('byte')->default(0);
             $table->string('furl')->nullable();
+            $table->string('kind')->nullable();
+            $table->string('kind_numb')->nullable();
+            $table->date('kind_date')->nullable();
+            $table->string('kind_sign')->nullable();
             $table->unsignedSmallInteger('vers')->default(1);
             $table->boolean('actv')->default(true);
             $table->unsignedBigInteger('user_id')->index();

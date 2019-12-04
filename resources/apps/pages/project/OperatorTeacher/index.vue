@@ -163,29 +163,30 @@
                                             <v-list-item-title>{{ document.name }}</v-list-item-title>
                                             <v-list-item-subtitle>
                                                 <span class="field">Jenis</span>:
-                                                <select v-model="document.type">
+                                                <select v-model="document.kind">
                                                     <option disabled value="">Pilihan</option>    
                                                     <option v-for="(doctype, idx) in doctypes" :key="idx">
                                                         {{ doctype }}
                                                     </option>
                                                 </select> 
 
-                                                <template v-if="document.type === 'IJAZAH' || document.type === 'SK'">
-                                                    <br /><span class="field">Nomor</span>: <input type="text" v-model="document.fileno" placeholder="Isi Nomor"> 
+                                                <template v-if="document.kind === 'IJAZAH' || document.kind === 'SK'">
+                                                    <br /><span class="field">Nomor</span>: <input type="text" v-model="document.kind_numb" placeholder="Isi Nomor"> 
                                                     <br /><span class="field">Tanggal</span>: 
-                                                        <v-menu
-                                                            v-model="document.picker"
-                                                            :close-on-content-click="false"
-                                                            transition="scale-transition"
-                                                            offset-y
-                                                            min-width="290px"
-                                                        >
-                                                            <template v-slot:activator="{ on }">
-                                                                <input type="text" v-model="document.filedt" placeholder="Isi Tanggal"  v-on="on">
-                                                            </template>
+                                                    <v-menu
+                                                        v-model="document.picker"
+                                                        :close-on-content-click="false"
+                                                        transition="scale-transition"
+                                                        offset-y
+                                                        min-width="290px"
+                                                    >
+                                                        <template v-slot:activator="{ on }">
+                                                            <input type="text" v-model="document.kind_date" placeholder="Isi Tanggal"  v-on="on">
+                                                        </template>
 
-                                                            <v-date-picker v-model="document.filedt" @input="document.picker = false"></v-date-picker>
-                                                        </v-menu>
+                                                        <v-date-picker v-model="document.kind_date" @input="document.picker = false"></v-date-picker>
+                                                    </v-menu>
+                                                    <br /><span class="field">Pejabat</span>: <input type="text" v-model="document.kind_sign" placeholder="Isi Pejabat"> 
                                                 </template>
                                             </v-list-item-subtitle>
                                         </v-list-item-content>
@@ -254,16 +255,15 @@ export default {
     data:() => ({
         doctypes: ['KTP', 'FOTO', 'NUPTK', 'IJAZAH', 'SK'],
 
-        filedt: null,
         newdocument: {
             id: null,
             name: null,
-            type: '',
             picker: false,
             path: null,
-            fileno: null,
-            filedt: null,
-            signby: null
+            kind: '',
+            kind_numb: null,
+            kind_date: null,
+            kind_sign: null
         },
 
         educations: [

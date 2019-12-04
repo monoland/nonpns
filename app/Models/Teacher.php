@@ -201,6 +201,10 @@ class Teacher extends Model
                     $xdocument = Document::find($document['id']);
                     
                     if ($xdocument) {
+                        $xdocument->kind = $document['kind'];
+                        $xdocument->kind_numb = $document['kind_numb'];
+                        $xdocument->kind_date = $document['kind_date'];
+                        $xdocument->kind_sign = $document['kind_sign'];
                         $xdocument->documentable_id = $model->id;
                         $xdocument->documentable_type = 'App\Models\Teacher';
                         $xdocument->save();
