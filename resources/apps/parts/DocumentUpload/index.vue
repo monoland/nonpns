@@ -114,13 +114,13 @@ export default {
                             if (typeof _this.callback === 'function') {
                                 _this.callback(response.record)
                             }
-
-                            _this.$store.commit('upload', {
-                                combined: false,
-                                progress: false,
-                                value: 0
-                            });
                         }
+
+                        _this.$store.commit('upload', {
+                            combined: false,
+                            progress: false,
+                            value: 0
+                        });
                     },
 
                     onError: function (id, name, errorReason, xhrOrXdr) {

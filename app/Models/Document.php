@@ -51,7 +51,15 @@ class Document extends Model
      */
     protected $fillable = [];
 
-    // relations
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function documentable()
+    {
+        return $this->morphTo();
+    }
 
     /**
      * Scope for combo.

@@ -34,7 +34,7 @@ class OperatorTeacherController extends Controller
         $this->authorize('create', Teacher::class);
 
         $this->validate($request, [
-            //
+            // 
         ]);
 
         return Teacher::storeRecord($request);
@@ -63,7 +63,14 @@ class OperatorTeacherController extends Controller
         $this->authorize('update', $teacher);
 
         $this->validate($request, [
-            //
+            'nik' => 'required',
+            'born_place' => 'required',
+            'born_date' => 'required',
+            'gender' => 'required',
+            'merried' => 'required',
+            'education' => 'required',
+            'source' => 'required',
+            'documents' => 'required',
         ]);
 
         return Teacher::updateRecord($request, $teacher);

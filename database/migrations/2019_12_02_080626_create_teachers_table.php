@@ -24,7 +24,7 @@ class CreateTeachersTable extends Migration
             $table->date('born_date')->nullable()->index();
             $table->enum('status', ['Pendidik', 'Tenaga Kependidikan'])->index()->default('Pendidik');
             $table->date('tmt')->nullable()->index();
-            $table->enum('merried', ['kawin', 'blm_kawin', 'duda', 'janda'])->nullable()->index();
+            $table->enum('merried', ['Kawin', 'Blm. Kawin', 'Duda', 'Janda'])->nullable()->index();
             $table->enum('source', ['APBN', 'APBD', 'LAINNYA'])->nullable()->index();
             $table->unsignedBigInteger('education_id')->nullable()->index();
             $table->string('register')->nullable()->index();

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\TeacherResource;
@@ -49,6 +50,16 @@ class Teacher extends Model
      * @var array
      */
     protected $fillable = [];
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
+    }
 
     /**
      * Undocumented function
@@ -170,8 +181,56 @@ class Teacher extends Model
         DB::beginTransaction();
 
         try {
-            // ...
+            $model->nik = $request->nik;
+            $model->front_title = $request->front_title;
+            $model->name = $request->name;
+            $model->back_title = $request->back_title;
+            $model->gender = $request->gender['value'];
+            $model->born_place = $request->born_place;
+            $model->born_date = $request->born_date;
+            $model->status = $request->status;
+            $model->tmt = $request->tmt;
+            $model->merried = $request->merried['value'];
+            $model->source = $request->source['value'];
+            $model->education_id = $request->education['value'];
+            $model->register = $request->register;
             $model->save();
+
+            if ($request->documents && count($request->documents)) {
+                foreach ($request->documents as $document) {
+                    $xdocument = Document::find($document['id']);
+                    
+                    if ($xdocument) {
+                        $xdocument->documentable_id = $model->id;
+                        $xdocument->documentable_type = 'App\Models\Teacher';
+                        $xdocument->save();
+                    }
+                }
+            }
+
+            if ($request->subjects && count($request->subjects)) {
+                $subjects = [];
+
+                foreach ($request->subjects as $index => $subject) {
+                    if (is_array($subject)) {
+                        $subjects[$subject['value']] = [
+                            'mandatory' => $index === 0 ? true : false
+                        ];
+                    } else {
+                        // addnew
+                        $newSubject = Subject::firstOrCreate([
+                            'name' => $subject,
+                            'slug' => Str::slug($subject)
+                        ]);
+                        
+                        $subjects[$newSubject->id] = [
+                            'mandatory' => $index === 0 ? true : false
+                        ];
+                    }
+                }
+
+                $model->subjects()->sync($subjects);
+            }
 
             DB::commit();
 

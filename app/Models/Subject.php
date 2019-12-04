@@ -48,7 +48,7 @@ class Subject extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name', 'slug'];
 
     /**
      * Undocumented function
