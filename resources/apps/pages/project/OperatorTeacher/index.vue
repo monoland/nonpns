@@ -336,7 +336,7 @@ export default {
         removeDocument: async function(document, index) {
             try {
                 await this.http.delete(
-                    '/sipandik/api/document/' + document.id
+                    '/api/document/' + document.id
                 );
 
                 this.record.documents.splice(index, 1);
