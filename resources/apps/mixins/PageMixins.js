@@ -3,7 +3,7 @@ import { mapState, mapActions } from 'vuex';
 export const pageMixins = {
     computed: {
         ...mapState([
-            'additional', 'disabled', 'form', 'headers', 'http', 'page', 
+            'combos', 'disabled', 'form', 'headers', 'http', 'page', 
             'record', 'records', 'table', 'toolbar'
         ]),
 

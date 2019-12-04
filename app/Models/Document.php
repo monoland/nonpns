@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
-// use App\Traits\HasMetaField;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\DocumentResource;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Document extends Model
 {
-    // use HasMetaField, SoftDeletes;
-
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -109,12 +105,13 @@ class Document extends Model
                 $chunk_strg = $request->totalFileSize.'-'.$request->totalParts.'-'.$request->fileName;
                 $chunk_hash = sha1($chunk_strg);
 
-                if ((new static())->where('hash', $chunk_hash)->first()) {
+                if ($current = (new static())->where('hash', $chunk_hash)->first()) {
                     return response()->json([
                         'success' => false,
                         'error' => 'File is already exists.',
                         'preventRetry' => true,
-                    ], 500);
+                        'record' => new DocumentResource($current)
+                    ], 200);
                 }
 
                 if ($request->totalParts > $chunk_maxi || $request->chunkSize > $chunk_mxsz) {
@@ -132,7 +129,7 @@ class Document extends Model
 
             return response()->json([
                 'success' => true,
-                'uuid' => $chunk_uuid,
+                'uuid' => $chunk_uuid
             ], 200);
         } catch (\Exception $e) {
             (new static())->cleanChunks($chunk_uuid);

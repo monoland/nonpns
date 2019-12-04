@@ -21,7 +21,7 @@ export default {
 
         allowedExtensions: {
             type: Array,
-            default:() => (['png', 'jpg', 'jpeg', 'pdf', 'zip']) 
+            default:() => (['png', 'jpg', 'jpeg', 'pdf']) 
         },
 
         callback: {
@@ -95,7 +95,10 @@ export default {
                     onUploadChunk: function (id, name, data) {
                         let value = (parseInt(data.partIndex) + 1) / parseInt(data.totalParts) * 100;
                         
-                        _this.$store.commit('upload', { value: value });
+                        _this.$store.commit('upload', { 
+                            value: value,
+                            name: name
+                        });
                         
                         if (value >= 100) {
                             _this.$store.commit('upload', { combined: true });
@@ -104,7 +107,9 @@ export default {
 
                     onComplete: function (id, name, response) {
                         if (!response.success) {
-                            _this.$store.dispatch('errors', response.error);
+                            if (!response.hasOwnProperty('record')) {
+                                _this.$store.dispatch('errors', response.error);
+                            }
                         } else {
                             if (typeof _this.callback === 'function') {
                                 _this.callback(response.record)
@@ -119,7 +124,12 @@ export default {
                     },
 
                     onError: function (id, name, errorReason, xhrOrXdr) {
-                        if (xhrOrXdr && xhrOrXdr.status == 401) {
+                        if (xhrOrXdr && xhrOrXdr.response) {
+                            let response = JSON.parse(xhrOrXdr.response);
+                            if (typeof _this.callback === 'function') {
+                                _this.callback(response.record)
+                            }
+                        } else if (xhrOrXdr && xhrOrXdr.status == 401) {
                             _this.$store.dispatch('signout');
                         } else {
                             _this.$store.dispatch('errors', errorReason);

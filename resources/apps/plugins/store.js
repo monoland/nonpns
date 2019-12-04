@@ -57,7 +57,7 @@ export default new Vuex.Store({
             total: 0, params: { itemsPerPage: 10, page: 1, sortBy: null, sortDesc: null}, 
             selected: [] 
         },
-        upload: { combined: false, progress: false, value: 0 }
+        upload: { combined: false, progress: false, value: 0, name: null }
     },
 
     getters: {
@@ -267,7 +267,7 @@ export default new Vuex.Store({
                 total: 0, params: { itemsPerPage: 10, page: 1, sortBy: null, sortDesc: null}, 
                 selected: [] 
             };
-            state.upload = { combined: false, progress: false, value: 0 };
+            state.upload = { combined: false, progress: false, value: 0, name: null };
         },
 
         overideState: function({ state }, payload) {
@@ -933,7 +933,7 @@ export default new Vuex.Store({
                 });
             }
 
-            window.console.clear();
+            // window.console.clear();
         }
     }
 });

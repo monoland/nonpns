@@ -24,14 +24,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedSmallInteger('vers')->default(1);
             $table->boolean('actv')->default(true);
             $table->unsignedBigInteger('user_id')->index();
-            $table->timestamps();
-        });
-
-        Schema::create('documentables', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('document_id')->index();
-            $table->morphs('documentable');
-            $table->string('describe');
+            $table->nullableMorphs('documentable');
             $table->timestamps();
         });
     }
@@ -42,6 +35,5 @@ class CreateDocumentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('documents');
-        Schema::dropIfExists('doclinks');
     }
 }

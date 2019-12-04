@@ -89,7 +89,7 @@
                     ></v-combobox>
                 </v-col>
 
-                <v-col cols="6">
+                <v-col cols="4">
                     <v-combobox
                         label="Status Pendidik"
                         :items="statuses"
@@ -98,7 +98,7 @@
                     ></v-combobox>
                 </v-col>
 
-                <v-col cols="6">
+                <v-col cols="4">
                     <v-combobox
                         label="Pendidikan Terakhir"
                         :items="educations"
@@ -107,57 +107,112 @@
                     ></v-combobox>
                 </v-col>
 
+                <v-col cols="4">
+                    <v-combobox
+                        label="Sumber Gaji"
+                        :items="sources"
+                        :color="$root.theme"
+                        v-model="record.source"
+                    ></v-combobox>
+                </v-col>
+
                 <v-col cols="12">
-                    <v-select
+                    <v-combobox
                         label="Mata Pelajaran"
                         :items="subjects"
                         :color="$root.theme"
-                        append-outer-icon="add"
-                        @click:append-outer="addMapel"
-                        v-model="record.subject"
-                    ></v-select>
-
-                    <v-data-table
-                        :headers="headmapel"
-                        :items="datamapel"
-                        :items-per-page="5"
-                        hide-default-footer
-                    ></v-data-table>
+                        :search-input.sync="mapelsync"
+                        @change="mapelsync = null"
+                        v-model="record.subjects"
+                        hide-selected
+                        multiple
+                        chips
+                        deletable-chips
+                    ></v-combobox>
                 </v-col>
 
                 <v-col cols="12">
-                    <v-text-field
-                        label="Sekolah Tambahan"
-                        :color="$root.theme"
-                        append-outer-icon="add"
-                        @click:append-outer="addMapel"
-                        v-model="record.itemschool"
-                    ></v-text-field>
+                    <v-card class="grey lighten-5" flat>
+                        <v-card-text style="min-height: 56px;">
+                            <v-progress-linear v-if="upload.value > 0"
+                                v-model="upload.value"
+                                height="25"
+                                reactive
+                            >
+                                <template v-slot="{ value }">
+                                    <strong>{{ upload.name + ' - ' + Math.round(value) }}%</strong>
+                                </template>
+                            </v-progress-linear>
 
-                    <v-data-table
-                        :headers="headschool"
-                        :items="dataschool"
-                        :items-per-page="5"
-                        hide-default-footer
-                    ></v-data-table>
+                            <v-list class="pa-0" two-line v-if="record.documents && record.documents.length > 0">
+                                <template v-for="(document, index) in record.documents">
+                                    <v-list-item :key="index">
+                                        <v-list-item-avatar>
+                                            <v-icon>folder</v-icon>
+                                        </v-list-item-avatar>
+
+                                        <v-list-item-content>
+                                            <v-list-item-title>{{ document.name }}</v-list-item-title>
+                                            <v-list-item-subtitle>
+                                                <span class="field">Jenis</span>:
+                                                <select v-model="document.type">
+                                                    <option disabled value="">Pilihan</option>    
+                                                    <option v-for="(doctype, idx) in doctypes" :key="idx">
+                                                        {{ doctype }}
+                                                    </option>
+                                                </select> 
+
+                                                <template v-if="document.type === 'IJAZAH' || document.type === 'SK'">
+                                                    <br /><span class="field">Nomor</span>: <input type="text" v-model="document.fileno" placeholder="Isi Nomor"> 
+                                                    <br /><span class="field">Tanggal</span>: 
+                                                        <v-menu
+                                                            v-model="document.picker"
+                                                            :close-on-content-click="false"
+                                                            transition="scale-transition"
+                                                            offset-y
+                                                            min-width="290px"
+                                                        >
+                                                            <template v-slot:activator="{ on }">
+                                                                <input type="text" v-model="document.filedt" placeholder="Isi Tanggal"  v-on="on">
+                                                            </template>
+
+                                                            <v-date-picker v-model="document.filedt" @input="document.picker = false"></v-date-picker>
+                                                        </v-menu>
+                                                </template>
+                                            </v-list-item-subtitle>
+                                        </v-list-item-content>
+
+                                        <v-list-item-action>
+                                            <v-btn icon @click="removeDocument(document, index)">
+                                                <v-icon>delete</v-icon>
+                                            </v-btn>
+                                        </v-list-item-action>
+                                    </v-list-item>
+
+                                    <v-divider :key="'div-' + index"></v-divider>
+                                </template>
+                                
+                            </v-list>
+                        </v-card-text>
+
+                        <v-card-text class="grey lighten-3" style="height: 48px; position: relative">
+                            <div class="d-block overline">lampiran dokumen</div>
+                            
+                            <v-btn class="v-btn__media"
+                                absolute
+                                dark fab top right
+                                :color="$root.theme"
+                            >
+                                <v-document-upload
+                                    :callback="addDocument"
+                                >
+                                    <v-icon>add</v-icon>
+                                </v-document-upload>
+                            </v-btn>
+                        </v-card-text>
+                    </v-card>
                 </v-col>
-
-                <v-col cols="12">
-                    <v-text-field
-                        label="Lampiran Dokumen"
-                        :color="$root.theme"
-                        append-outer-icon="add"
-                        @click:append-outer="addMapel"
-                        v-model="record.itemsdoc"
-                    ></v-text-field>
-
-                    <v-data-table
-                        :headers="headdoc"
-                        :items="datadoc"
-                        :items-per-page="5"
-                        hide-default-footer
-                    ></v-data-table>
-                </v-col>
+                
             </v-row>
         </v-page-form>
     </v-page-wrap>
@@ -165,6 +220,7 @@
 
 <script>
 import { pageMixins } from '@apps/mixins/PageMixins';
+import { mapState } from 'vuex';
 
 export default {
     name: 'page-operator-teacher',
@@ -175,14 +231,32 @@ export default {
         { path: 'operator-teacher', name: 'operator-teacher', root: 'monoland' },
     ],
 
-    data:() => ({
-        headmapel: [
-            { text: 'Nama Mapel', value: 'name' }
-        ],
+    computed: {
+        ...mapState(['upload']),
 
-        headschool: [
-            { text: 'Nama Sekolah', value: 'name' }
-        ],
+        subjects: function() {
+            if (this.combos && this.combos.hasOwnProperty('subjects')) {
+                return this.combos.subjects;
+            }
+
+            return [];
+        }
+    },
+
+    data:() => ({
+        doctypes: ['KTP', 'FOTO', 'NUPTK', 'IJAZAH', 'SK'],
+
+        filedt: null,
+        newdocument: {
+            id: null,
+            name: null,
+            type: '',
+            picker: false,
+            path: null,
+            fileno: null,
+            filedt: null,
+            signby: null
+        },
 
         educations: [
             { text: 'SD', value: 1 },
@@ -195,6 +269,12 @@ export default {
             { text: 'S1', value: 8 },
             { text: 'S2', value: 9 },
             { text: 'S3', value: 10 },
+        ],
+
+        sources: [
+            { text: 'APBN', value: 'APBN' },
+            { text: 'APBD', value: 'APBD' },
+            { text: 'LAINNYA', value: 'LAINNYA' },
         ],
 
         genders: [
@@ -213,6 +293,8 @@ export default {
             { text: 'Pendidik', value: 'Pendidik' },
             { text: 'Tenaga Kependidikan', value: 'Tenaga Kependidikan' },
         ],
+
+        mapelsync: null,
     }),
 
     created() {
@@ -225,7 +307,7 @@ export default {
 
         this.pageInfo({
             icon: 'people',
-            title: 'OperatorTeacher',
+            title: 'Pegawai',
         });
 
         this.dataUrl(`/api/teacher`);
@@ -233,11 +315,35 @@ export default {
         this.setRecord({
             id: null,
             name: null,
+            documents: [],
         });
     },
 
     methods: {
-        addMapel: function() {}
-    }
+        addDocument: function(document) {
+            let newdoc = Object.assign({}, this.newdocument);
+                newdoc.id = document.id;
+                newdoc.name = document.name;
+                newdoc.path = document.path;
+            
+            let idx = this.record.documents.findIndex(obj => obj.id === newdoc.id);
+
+            if (idx === -1) {
+                this.record.documents.push(newdoc);
+            }
+        },
+
+        removeDocument: async function(document, index) {
+            try {
+                await this.http.delete(
+                    '/api/document/' + document.id
+                );
+
+                this.record.documents.splice(index, 1);
+            } catch (error) {
+                this.$store.dispatch('errors', error);
+            }
+        }
+    },
 };
 </script>
