@@ -1,5 +1,12 @@
 <template>
-    <v-page-wrap crud absolute searchable with-progress>
+    <v-page-wrap 
+        :enable-add="false"
+        :enable-delete="false"
+        crud 
+        absolute 
+        searchable 
+        with-progress
+    >
         <v-desktop-table v-if="desktop"
             single
         ></v-desktop-table>
@@ -15,7 +22,7 @@
 
         <v-page-form small>
             <v-row>
-                <v-col cols="2">
+                <v-col cols="3">
                     <v-text-field
                         label="Gelar Depan"
                         :color="$root.theme"
@@ -23,7 +30,7 @@
                     ></v-text-field>
                 </v-col>
 
-                <v-col cols="8">
+                <v-col cols="6">
                     <v-text-field
                         label="Nama"
                         :color="$root.theme"
@@ -31,7 +38,7 @@
                     ></v-text-field>
                 </v-col>
 
-                <v-col cols="2">
+                <v-col cols="3">
                     <v-text-field
                         label="Gelar Belakang"
                         :color="$root.theme"
@@ -91,7 +98,7 @@
 
                 <v-col cols="4">
                     <v-combobox
-                        label="Status Pendidik"
+                        label="Status Pegawai"
                         :items="statuses"
                         :color="$root.theme"
                         v-model="record.status"

@@ -7,6 +7,7 @@
                 :flat="flat"
                 :searchable="searchable"
                 :withProgress="withProgress"
+                :enable-add="enableAdd"
                 :enable-delete="enableDelete"
                 :enable-edit="enableEdit"
             >
@@ -47,6 +48,11 @@ export default {
         crud: {
             type: Boolean,
             default: false
+        },
+
+        enableAdd: {
+            type: Boolean,
+            default: true
         },
 
         enableDelete: {

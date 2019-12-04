@@ -134,6 +134,11 @@ export default {
             default: false
         },
 
+        enableAdd: {
+            type: Boolean,
+            default: true
+        },
+        
         enableDelete: {
             type: Boolean,
             default: true
@@ -194,6 +199,7 @@ export default {
     watch: {
         disabled: {
             handler: function() {
+                if (!this.enableAdd) this.disabled.add = true;
                 if (!this.enableEdit) this.disabled.edit = true;
                 if (!this.enableDelete) this.disabled.delete = true;
             },

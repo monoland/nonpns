@@ -38,7 +38,7 @@ export default new Vuex.Store({
         company: {},
         info: {},
         dataUrl: null,
-        disabled: { add: false, delete: true, edit: true, find: false, link: true, refresh: false },
+        disabled: { add: true, delete: true, edit: true, find: false, link: true, refresh: false },
         form: { state: false, mode: 'addnew' },
         login: { username: null, userpass: null },
         headers: [],
@@ -248,7 +248,7 @@ export default new Vuex.Store({
             state.setRecord = () => {};
 
             state.dataUrl = null;
-            state.disabled = { add: false, delete: true, edit: true, find: false, link: true, refresh: false };
+            state.disabled = { add: true, delete: true, edit: true, find: false, link: true, refresh: false };
             state.form = { state: false, mode: 'addnew' };
             state.login = { username: null, userpass: null };
             state.headers = [];
