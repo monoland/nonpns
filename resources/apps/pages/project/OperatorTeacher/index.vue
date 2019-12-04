@@ -17,7 +17,7 @@
             <v-row>
                 <v-col cols="2">
                     <v-text-field
-                        label="Gelar"
+                        label="Gelar Depan"
                         :color="$root.theme"
                         v-model="record.front_title"
                     ></v-text-field>
@@ -33,7 +33,7 @@
 
                 <v-col cols="2">
                     <v-text-field
-                        label="Gelar"
+                        label="Gelar Belakang"
                         :color="$root.theme"
                         v-model="record.back_title"
                     ></v-text-field>

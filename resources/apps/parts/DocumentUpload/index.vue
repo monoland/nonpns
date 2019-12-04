@@ -70,7 +70,7 @@ export default {
                 chunking: {
                     enabled: true,
                     mandatory: true,
-                    partSize: 1000000,
+                    partSize: 250000,
                     paramNames: {
                         chunkSize: 'chunkSize',
                         partByteOffset: 'partByteOffset',
