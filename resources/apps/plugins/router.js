@@ -53,7 +53,7 @@ function extractRouteFrom(components) {
 if (keep !== null) routes.push(keep);
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     routes
 });
 
