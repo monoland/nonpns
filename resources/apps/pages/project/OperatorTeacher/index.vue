@@ -170,7 +170,7 @@
                                                     </option>
                                                 </select> 
 
-                                                <template v-if="document.kind === 'IJAZAH' || document.kind === 'SK'">
+                                                <template v-if="document.kind === 'IJAZAH' || document.kind === 'Surat Keputusan (SK)'">
                                                     <br /><span class="field">Nomor</span>: <input type="text" v-model="document.kind_numb" placeholder="Isi Nomor"> 
                                                     <br /><span class="field">Tanggal</span>: 
                                                     <v-menu
@@ -253,7 +253,7 @@ export default {
     },
 
     data:() => ({
-        doctypes: ['KTP', 'FOTO', 'NUPTK', 'IJAZAH', 'SK'],
+        doctypes: ['KTP', 'FOTO', 'NUPTK', 'IJAZAH', 'Surat Keputusan (SK)', 'Surat Keterangan Atasan (SKTA)'],
 
         newdocument: {
             id: null,
