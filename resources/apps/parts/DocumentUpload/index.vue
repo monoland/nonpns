@@ -109,6 +109,10 @@ export default {
                         if (!response.success) {
                             if (!response.hasOwnProperty('record')) {
                                 _this.$store.dispatch('errors', response.error);
+                            } else {
+                                if (typeof _this.callback === 'function') {
+                                    _this.callback(response.record)
+                                }   
                             }
                         } else {
                             if (typeof _this.callback === 'function') {

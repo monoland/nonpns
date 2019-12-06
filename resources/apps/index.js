@@ -25,6 +25,17 @@ Vue.directive('press', {
     }
 });
 
+// import Echo from 'laravel-echo';
+
+// window.Pusher = require('pusher-js');
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: '9b155284f87393e32a82',
+//     cluster: 'ap1',
+//     forceTLS: true
+// });
+
 // pusher
 // import Pusher from 'pusher-js';
 // window.Pusher = Pusher;
@@ -63,6 +74,10 @@ new Vue({
             if (!money) return 0;
             return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
+    },
+
+    mounted() {
+        // 
     },
     
     render: h => h(Apps)
