@@ -83,7 +83,6 @@
                         label="Jenis Kelamin"
                         :items="genders"
                         :color="$root.theme"
-                        :return-object="false"
                         v-model="record.gender"
                     ></v-combobox>
                 </v-col>
@@ -267,6 +266,7 @@ export default {
         },
 
         educations: [
+            { text: 'Tidak Sekolah', value: 11 },
             { text: 'SD', value: 1 },
             { text: 'SMP', value: 2 },
             { text: 'SMA', value: 3 },

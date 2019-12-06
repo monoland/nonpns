@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mono;
 
+use App\Events\TeacherHasUpdated;
 use App\Models\User;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class WebController extends Controller
      */
     public function index()
     {
+        TeacherHasUpdated::dispatch();
         return view('default');
     }
 
