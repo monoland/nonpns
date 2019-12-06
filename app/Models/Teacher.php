@@ -194,6 +194,7 @@ class Teacher extends Model
             $model->source = $request->source['value'];
             $model->education_id = $request->education['value'];
             $model->register = $request->register;
+            $model->updated = true;
             $model->save();
 
             if ($request->documents && count($request->documents)) {
