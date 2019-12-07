@@ -121,11 +121,11 @@ class SchoolController extends Controller
      */
     public function resetPassword(School $school)
     {
-        $school->user()->update([
+        return $school->user()->update([
             'email' => Str::slug($school->name, '_'),
             'password' => Hash::make('12345')
         ]);
 
-        return $school->with('user');
+        // return $school->with('user');
     }
 }
