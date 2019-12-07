@@ -7,6 +7,7 @@ use App\Http\Resources\SchoolCollection;
 use App\Models\Branch;
 use App\Models\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SchoolController extends Controller
 {
@@ -109,5 +110,18 @@ class SchoolController extends Controller
     public function combo(Request $request)
     {
         return School::fetchCombo($request);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param School $school
+     * @return void
+     */
+    public function resetPassword(School $school)
+    {
+        return $school->user()->update([
+            'password' => Hash::make('12345')
+        ]);
     }
 }

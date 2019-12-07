@@ -6,6 +6,7 @@
 
         <template #toolbar-default>
             <v-btn-tips @click="openLink" label="PENDIDIK" icon="photo_filter" :show="!disabled.link" />
+            <v-btn-tips @click="postReset" label="RESETER" icon="photo_filter" :show="!disabled.link" />
         </template>
 
         <v-desktop-table v-if="desktop"
@@ -74,6 +75,16 @@ export default {
         openLink: function() {
             this.$router.push({ name: 'teacher', params: { school: this.record.id } });
         },
+
+        postReset: async function() {
+            try {
+                await this.http.post(`/api/school/${this.record.id}/reset`);
+
+                this.$store.dispatch('message', 'proses reset berhasil!');
+            } catch (error) {
+                this.$store.dispatch('errors', error);
+            }
+        }
     }
 };
 </script>
