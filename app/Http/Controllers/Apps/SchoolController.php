@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Apps;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SchoolCollection;
 use App\Models\Branch;
@@ -120,8 +121,11 @@ class SchoolController extends Controller
      */
     public function resetPassword(School $school)
     {
-        return $school->user()->update([
+        $school->user()->update([
+            'email' => Str::slug($school->name, '_'),
             'password' => Hash::make('12345')
         ]);
+
+        return $school->with('user');
     }
 }
