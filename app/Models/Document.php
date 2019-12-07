@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\DocumentResource;
@@ -110,7 +111,7 @@ class Document extends Model
 
         try {
             if ($chunk_indx === 0) {
-                $chunk_strg = $request->totalFileSize.'-'.$request->totalParts.'-'.$request->fileName;
+                $chunk_strg = $chunk_uuid;
                 $chunk_hash = sha1($chunk_strg);
 
                 if ($current = (new static())->where('hash', $chunk_hash)->first()) {
@@ -187,7 +188,7 @@ class Document extends Model
             $model->type = File::type(storage_path($store_path));
             $model->mime = File::mimeType(storage_path($store_path));
             $model->path = $chunk_uuid.'.'.$model->extn;
-            $model->hash = sha1($request->totalFileSize.'-'.$request->totalParts.'-'.$request->fileName);
+            $model->hash = sha1($chunk_uuid);
 
             if (in_array($model->extn, ['jpg', 'jpeg', 'png'])) {
                 $model->furl = '/mediafiles/original/'.$chunk_uuid.'.'.$model->extn;
