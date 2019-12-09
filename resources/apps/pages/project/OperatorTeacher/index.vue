@@ -220,7 +220,6 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
-                
             </v-row>
         </v-page-form>
     </v-page-wrap>

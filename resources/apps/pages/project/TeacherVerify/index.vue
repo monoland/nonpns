@@ -178,6 +178,24 @@
                             </v-card-text>
                         </v-card>
                     </v-col>
+
+                    <v-col cols="12">
+                        <v-card>
+                            <v-card-text>
+                                <v-btn outlined fab color="orange">
+                                    <v-document-upload
+                                        :callback="displayImage"
+                                    >
+                                        <v-icon>photo_camera</v-icon>
+                                    </v-document-upload>
+                                </v-btn>
+                            </v-card-text>
+
+                            <v-card-actions>
+                                <v-btn color="green" block dark>Verifikasi</v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
                 </v-row>
             </v-card-text>
         </v-card>
@@ -265,7 +283,9 @@ export default {
             } catch (error) {
                 this.$store.dispatch('errors', error);
             }
-        }
+        },
+
+        displayImage: function(){}
     }
 };
 </script>

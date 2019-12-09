@@ -50,8 +50,8 @@ export default {
     methods: {
         initFineUploader: function() {
             let _this = this;
-            let requestUrl = this.documentName ? '/sipandik/api/document?documentName=' + this.documentName : '/sipandik/api/document';
-            let combineUrl = this.documentName ? '/sipandik/api/document?documentName=' + this.documentName + '&completed=true' : '/sipandik/api/document?completed=true';
+            let requestUrl = this.documentName ? '/api/document?documentName=' + this.documentName : '/api/document';
+            let combineUrl = this.documentName ? '/api/document?documentName=' + this.documentName + '&completed=true' : '/api/document?completed=true';
 
             let options = {
                 button: document.getElementById(_this.uuid),
