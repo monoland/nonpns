@@ -2,7 +2,7 @@
     "name": "SiPANDIK",
     "short_name": "SiPANDIK",
     "icons": [],
-    "start_url": "http://app-bkd.bantenprov.go.id/sipandik/",
+    "start_url": "https://app-bkd.bantenprov.go.id/sipandik/",
     "scope": "/",
     "display": "fullscreen",
     "background_color": "#3E4EB8",
