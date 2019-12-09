@@ -8,15 +8,6 @@
             single
         ></v-desktop-table>
 
-        <!-- <v-mobile-table icon="perm_identity" v-else>
-            <template v-slot:default="{ item }">
-                <v-list-item-content>
-                    <v-list-item-title>{{ item.name }}</v-list-item-title>
-                    <v-list-item-subtitle class="f-nunito">{{ item.email }}</v-list-item-subtitle>
-                </v-list-item-content>
-            </template>
-        </v-mobile-table> -->
-
         <v-list two-line subheader v-else>
             <template v-for="(record, index) in records">
                 <v-list-item :key="index" v-press="() => recordPress(record)" @click="openItem(record)">

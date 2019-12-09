@@ -36,14 +36,34 @@
             </v-data-table>
         </v-widget>
 
-        <v-mobile-table icon="perm_identity" v-else>
-            <template v-slot:default="{ item }">
-                <v-list-item-content>
-                    <v-list-item-title>{{ item.name }}</v-list-item-title>
-                    <v-list-item-subtitle class="f-nunito">{{ item.email }}</v-list-item-subtitle>
-                </v-list-item-content>
+        <v-list two-line subheader v-else>
+            <template v-for="(record, index) in records">
+                <v-list-item :key="index" v-press="() => recordPress(record)" @click="openItem(record)">
+                    <v-list-item-avatar>
+                        <v-scale-transition mode="out-in">
+                            <v-icon 
+                                :key="`icon-${record.pinned}`" 
+                                :class="{ 'deep-orange': record.pinned, 'grey lighten-1': !record.pinned }"
+                                class="white--text"
+                            >
+                                {{ record.pinned ? 'done' : 'perm_identity' }}
+                            </v-icon>
+                        </v-scale-transition>
+                    </v-list-item-avatar>
+
+                    <v-list-item-content>
+                        <v-list-item-title>{{ record.name }}</v-list-item-title>
+                        <v-list-item-subtitle class="f-nunito">{{ `TTL: ${record.born_place}, ${record.born_date}` }}</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-icon>
+                        <v-icon>{{ record.verified ? 'check' : 'close' }}</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+
+                <v-divider :key="`divider-${index}`" inset></v-divider>
             </template>
-        </v-mobile-table>
+        </v-list>
 
         <v-page-form small>
             <v-row>
@@ -224,6 +244,10 @@ export default {
     methods: {
         openVerify: function(){
             this.$router.push({ name: 'teacher-verify', params: { teacher: this.record.id } });
+        },
+
+        openItem: function(record) {
+            this.$router.push({ name: 'teacher-verify', params: { teacher: record.id } });
         },
         
         postReset: function() {}

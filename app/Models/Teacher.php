@@ -182,9 +182,9 @@ class Teacher extends Model
 
         try {
             $model->nik = $request->nik;
-            $model->front_title = $request->front_title;
-            $model->name = $request->name;
-            $model->back_title = $request->back_title;
+            // $model->front_title = $request->front_title;
+            // $model->name = $request->name;
+            // $model->back_title = $request->back_title;
             $model->gender = $request->gender['value'];
             $model->born_place = $request->born_place;
             $model->born_date = $request->born_date;
