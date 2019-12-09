@@ -50,7 +50,10 @@ export default {
     created() {
         this.tableHeaders([
             { text: 'Name', value: 'name' },
-            { text: 'Updated', value: 'updated_at', class: 'datetime-field' }
+            { text: 'Sekolah', value: 'schools' },
+            { text: 'Pegawai', value: 'teachers' },
+            { text: 'Update', value: 'updates' },
+            { text: 'Verifikasi', value: 'verifies' },
         ]);
 
         this.pageInfo({

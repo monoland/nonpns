@@ -80,7 +80,7 @@ class WebController extends Controller
                         ['type' => 'item', 'icon' => 'dashboard', 'text' => 'Beranda', 'to' => ['name' => 'home']],
                         // master
                         ['type' => 'subheader', 'text' => 'Master', 'class' => 'mt-2'],
-                        ['type' => 'item', 'icon' => 'filter_none', 'text' => 'KCD', 'to' => ['name' => 'branch']],
+                        ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Kantor Cabang', 'to' => ['name' => 'branch']],
                         ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Mata Pelajaran', 'to' => ['name' => 'subject']],
                         
                         // utilitas

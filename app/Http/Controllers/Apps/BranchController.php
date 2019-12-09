@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchCollection;
 use App\Models\Branch;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
@@ -19,7 +20,15 @@ class BranchController extends Controller
         $this->authorize('viewAny', Branch::class);
         
         return new BranchCollection(
-            Branch::filterOn($request)->paginate($request->itemsPerPage)
+            Branch::withCount([
+            'schools', 
+            'teachers', 
+            'teachers as updates_count' => function (Builder $query) {
+                $query->where('updated', true);
+            }, 
+            'teachers as verifies_count' => function (Builder $query) {
+                $query->where('verified', true);
+            }])->filterOn($request)->paginate($request->itemsPerPage)
         );
     }
 

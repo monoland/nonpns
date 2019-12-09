@@ -17,6 +17,10 @@ class BranchResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'schools' => $this->schools_count,
+            'teachers' => $this->teachers_count,
+            'updates' => $this->updates_count,
+            'verifies' => $this->verifies_count,
             'pinned' => false,
             'updated_at' => (string) $this->updated_at,
         ];

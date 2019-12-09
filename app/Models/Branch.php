@@ -71,6 +71,16 @@ class Branch extends Model
     }
 
     /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
+    }
+
+    /**
      * Scope for combo
      */
     public function scopeFetchCombo($query)
