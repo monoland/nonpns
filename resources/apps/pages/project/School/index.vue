@@ -5,8 +5,8 @@
         </template>
 
         <template #toolbar-default>
-            <v-btn-tips @click="openLink" label="PENDIDIK" icon="photo_filter" :show="!disabled.link" />
-            <v-btn-tips @click="postReset" label="RESETER" icon="photo_filter" :show="!disabled.link" />
+            <v-btn-tips @click="postReset" label="RESET-USER" icon="history" :show="!disabled.link" />
+            <v-btn-tips @click="openLink" label="PENDIDIK" icon="perm_identity" :show="!disabled.link" />
         </template>
 
         <v-desktop-table v-if="desktop"
@@ -55,6 +55,11 @@ export default {
     created() {
         this.tableHeaders([
             { text: 'Name', value: 'name' },
+            { text: 'Pegawai', value: 'teachers' },
+            { text: 'Update', value: 'updates', align: 'end' },
+            { text: null, value: 'update_percent' },
+            { text: 'Verifikasi', value: 'verifies', align: 'end' },
+            { text: null, value: 'verify_percent' },
             { text: 'Updated', value: 'updated_at', class: 'datetime-field' }
         ]);
 

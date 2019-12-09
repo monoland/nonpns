@@ -1,7 +1,7 @@
 <template>
     <v-page-wrap crud absolute searchable with-progress>
         <template #toolbar-default>
-            <v-btn-tips @click="openLink" label="school" icon="photo_filter" :show="!disabled.link" />
+            <v-btn-tips @click="openLink" label="SEKOLAH" icon="school" :show="!disabled.link" />
         </template>
 
         <v-desktop-table v-if="desktop"
@@ -51,9 +51,14 @@ export default {
         this.tableHeaders([
             { text: 'Name', value: 'name' },
             { text: 'Sekolah', value: 'schools' },
+            { text: 'SMA', value: 'sma' },
+            { text: 'SMK', value: 'smk' },
+            { text: 'SKh', value: 'skh' },
             { text: 'Pegawai', value: 'teachers' },
-            { text: 'Update', value: 'updates' },
-            { text: 'Verifikasi', value: 'verifies' },
+            { text: 'Update', value: 'updates', align: 'end' },
+            { text: null, value: 'update_percent' },
+            { text: 'Verifikasi', value: 'verifies', align: 'end' },
+            { text: null, value: 'verify_percent' },
         ]);
 
         this.pageInfo({

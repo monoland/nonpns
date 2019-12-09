@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SchoolCollection;
 use App\Models\Branch;
 use App\Models\School;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,7 +24,15 @@ class SchoolController extends Controller
         $this->authorize('viewAny', School::class);
 
         return new SchoolCollection(
-            $branch->schools()->filterOn($request)->paginate($request->itemsPerPage)
+            $branch->schools()->withCount([
+                'teachers', 
+                'teachers as updates_count' => function (Builder $query) {
+                    $query->where('updated', true);
+                }, 
+                'teachers as verifies_count' => function (Builder $query) {
+                    $query->where('verified', true);
+                }
+            ])->filterOn($request)->paginate($request->itemsPerPage)
         );
     }
 

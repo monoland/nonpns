@@ -4,9 +4,35 @@
             <v-btn-tips @click="$router.go(-1)" label="school" icon="arrow_back" :show="true" />
         </template>
 
-        <v-desktop-table v-if="desktop"
+        <!-- <v-desktop-table v-if="desktop"
             single
-        ></v-desktop-table>
+        ></v-desktop-table> -->
+        <v-widget table v-if="desktop">
+            <v-data-table
+                v-model="table.selected"
+                :headers="headers"
+                :items="records"
+                :single-select="true"
+                :loading="table.loader"
+                :options.sync="table.options"
+                :server-items-length="table.total"
+                :footer-props="table.footerProps"
+                item-key="id"
+                show-select
+            >
+                <template #:progress>
+                    <v-progress-linear :color="color" height="1" indeterminate></v-progress-linear>
+                </template>
+
+                <template v-slot:item.updated="{ item }">
+                    <v-icon>{{ item.updated === true ? 'check' : 'close' }}</v-icon>
+                </template>
+
+                <template v-slot:item.verified="{ item }">
+                    <v-icon>{{ item.verified === true ? 'check' : 'close' }}</v-icon>
+                </template>
+            </v-data-table>
+        </v-widget>
 
         <v-mobile-table icon="perm_identity" v-else>
             <template v-slot:default="{ item }">
@@ -162,6 +188,10 @@ export default {
     created() {
         this.tableHeaders([
             { text: 'Name', value: 'name' },
+            { text: 'Tmp Lahir', value: 'born_place' },
+            { text: 'Tgl Lahir', value: 'born_date' },
+            { text: 'Update', value: 'updated' },
+            { text: 'Verifikasi', value: 'verified' },
             { text: 'Updated', value: 'updated_at', class: 'datetime-field' }
         ]);
 

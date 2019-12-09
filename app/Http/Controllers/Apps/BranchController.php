@@ -22,6 +22,15 @@ class BranchController extends Controller
         return new BranchCollection(
             Branch::withCount([
             'schools', 
+            'schools as sma_count' => function (Builder $query) {
+                $query->where('type', 'sma');
+            },
+            'schools as smk_count' => function (Builder $query) {
+                $query->where('type', 'smk');
+            },
+            'schools as skh_count' => function (Builder $query) {
+                $query->where('type', 'skh');
+            },
             'teachers', 
             'teachers as updates_count' => function (Builder $query) {
                 $query->where('updated', true);
