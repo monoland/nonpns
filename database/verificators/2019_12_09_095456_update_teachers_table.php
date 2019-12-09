@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeacherTable extends Migration
+class UpdateTeachersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateTeacherTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasColumns('teachers', ['updated', 'verified'])) {
+        if (!Schema::hasColumn('teachers', 'addition')) {
             Schema::table('teachers', function(Blueprint $table) {
-                $table->boolean('updated')->default(false);
-                $table->boolean('verified')->default(false);
+                $table->boolean('addition')->default(false);
             });
         }
     }
@@ -28,6 +27,6 @@ class CreateTeacherTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teacher');
+        //
     }
 }

@@ -56,9 +56,9 @@ export default {
         this.tableHeaders([
             { text: 'Name', value: 'name' },
             { text: 'Pegawai', value: 'teachers' },
-            { text: 'Update', value: 'updates', align: 'end' },
+            { text: 'Update', value: 'updated', align: 'end' },
             { text: null, value: 'update_percent' },
-            { text: 'Verifikasi', value: 'verifies', align: 'end' },
+            { text: 'Verifikasi', value: 'verified', align: 'end' },
             { text: null, value: 'verify_percent' },
             { text: 'Updated', value: 'updated_at', class: 'datetime-field' }
         ]);
