@@ -4,9 +4,11 @@
             <v-btn-tips @click="$router.go(-1)" label="school" icon="arrow_back" :show="true" />
         </template>
 
-        <!-- <v-desktop-table v-if="desktop"
-            single
-        ></v-desktop-table> -->
+        <template #toolbar-default>
+            <v-btn-tips @click="postReset" label="RESET-VERIFIKASI" icon="history" :show="!disabled.link" />
+            <v-btn-tips @click="openVerify" label="VERIFIKASI" icon="done_all" :show="!disabled.link" />
+        </template>
+
         <v-widget table v-if="desktop">
             <v-data-table
                 v-model="table.selected"
@@ -217,6 +219,14 @@ export default {
             education: null,
             register: null
         });
+    },
+
+    methods: {
+        openVerify: function(){
+            this.$router.push({ name: 'teacher-verify', params: { teacher: this.record.id } });
+        },
+        
+        postReset: function() {}
     }
 };
 </script>

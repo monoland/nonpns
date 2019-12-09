@@ -6,4 +6,5 @@ export { default as School } from './School';
 export { default as SchoolUser } from './SchoolUser';
 export { default as Subject } from './Subject';
 export { default as Teacher } from './Teacher';
+export { default as TeacherVerify } from './TeacherVerify';
 export { default as OperatorTeacher } from './OperatorTeacher';

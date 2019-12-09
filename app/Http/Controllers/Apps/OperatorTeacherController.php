@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TeacherCollection;
+use App\Http\Resources\TeacherResource;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,7 @@ class OperatorTeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        //
+        return new TeacherResource($teacher);
     }
 
     /**

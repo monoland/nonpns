@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TeacherCollection;
+use App\Http\Resources\TeacherResource;
 use App\Models\School;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ class TeacherController extends Controller
      */
     public function show(School $school, Teacher $teacher)
     {
-        //
+        // 
     }
 
     /**

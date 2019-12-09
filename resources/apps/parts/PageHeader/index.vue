@@ -39,6 +39,12 @@
                     <v-spacer></v-spacer>
 
                     <v-scale-transition>
+                        <v-btn key="edit" icon :color="$root.theme" @click="editFormOpen" v-show="toolbar.edit">
+                            <v-icon>edit</v-icon>
+                        </v-btn>
+                    </v-scale-transition>
+
+                    <v-scale-transition>
                         <v-btn key="trash" icon :color="$root.theme" @click="trashFormOpen" v-show="toolbar.delete">
                             <v-icon>delete</v-icon>
                         </v-btn>

@@ -643,7 +643,7 @@ export default new Vuex.Store({
                 let url = state.dataUrl;
                 let params = state.table.params;
 
-                if (url.includes('/api/document')) {
+                if (url && url.includes('/api/document')) {
                     commit('document', { records: [] });
                 }
 
@@ -669,7 +669,7 @@ export default new Vuex.Store({
             if (state.page.state === 'pinned') return;
 
             commit('pageInfo', { state: 'pinned' });
-            commit('toolbar', { delete: true });
+            commit('toolbar', { edit: true, delete: true });
             commit('selectedPush', payload);
         },
 

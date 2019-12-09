@@ -21,14 +21,16 @@ export const pageMixins = {
     },
 
     mounted() {
-        this.recordNew();
-        this.recordFetch();
+        if (this.$store.state.dataUrl) {
+            this.recordNew();
+            this.recordFetch();
+        }
     },
 
     methods: {
         ...mapActions([
             'afterSelected', 'dataUrl', 'recordFetch', 'initStore', 
-            'overideState', 'pageInfo', 'recordNew', 'setRecord', 
+            'overideState', 'pageInfo', 'recordNew', 'recordPress', 'setRecord', 
             'setAfterSelected', 'setOverideState', 'tableHeaders',
             'newFormOpen', 'setUploadCallback', 'setFilter', 'setAfterFormClose'
         ])

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SiPANDIK</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="/styles/monoland.css">
+    <link rel="manifest" href="{{ env('APP_ASET') }}/manifest.json">
+    <link rel="stylesheet" href="{{ env('APP_ASET') }}/styles/monoland.css">
 </head>
 
 <style>
@@ -41,8 +41,8 @@
         </div>
     </noscript>
 
-    <script src="/scripts/manifest.js"></script>
-    <script src="/scripts/vendor.js"></script>
-    <script src="/scripts/monoland.js"></script>
+    <script src="{{ env('APP_ASET') }}/scripts/manifest.js"></script>
+    <script src="{{ env('APP_ASET') }}/scripts/vendor.js"></script>
+    <script src="{{ env('APP_ASET') }}/scripts/monoland.js"></script>
 </body>
 </html>
