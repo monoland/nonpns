@@ -1,8 +1,7 @@
 {
-    "name": "Monoland",
-    "short_name": "Monoland",
+    "name": "SiPANDIK",
+    "short_name": "SiPANDIK",
     "icons": [],
-    "start_url": "/index.html",
     "display": "fullscreen",
     "background_color": "#3E4EB8",
     "theme_color": "#2F3BA2"
