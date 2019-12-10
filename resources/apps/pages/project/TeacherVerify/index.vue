@@ -164,12 +164,6 @@
                                                     </template>
                                                 </v-list-item-subtitle>
                                             </v-list-item-content>
-
-                                            <v-list-item-action>
-                                                <v-btn icon @click="removeDocument(document, index)">
-                                                    <v-icon>delete</v-icon>
-                                                </v-btn>
-                                            </v-list-item-action>
                                         </v-list-item>
 
                                         <v-divider :key="'div-' + index"></v-divider>
@@ -182,17 +176,22 @@
                     <v-col cols="12">
                         <v-card>
                             <v-card-text>
-                                <v-btn outlined fab color="orange">
-                                    <v-document-upload
-                                        :callback="displayImage"
-                                    >
-                                        <v-icon>photo_camera</v-icon>
-                                    </v-document-upload>
-                                </v-btn>
+                                <div class="d-flex align-center justify-center" style="min-height: 56px;">
+                                    <v-btn absolute outlined fab :color="employee.verify === null ? 'green' : 'white'" style="z-index: 1;">
+                                        <v-document-upload
+                                            :callback="displayImage"
+                                        >
+                                            <v-icon>photo_camera</v-icon>
+                                        </v-document-upload>
+                                    </v-btn>
+                                    <template v-if="employee.verify && employee.verify.furl">
+                                        <v-img :src="employee.verify.furl"></v-img>
+                                    </template>
+                                </div>
                             </v-card-text>
 
                             <v-card-actions>
-                                <v-btn color="green" block dark>Verifikasi</v-btn>
+                                <v-btn block :color="employee.verify === null ? 'black' : 'green'" :dark="employee.verify !== null" :disabled="employee.verify === null">Verifikasi</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -258,7 +257,10 @@ export default {
         ],
 
         employee: {
-            front_title: null
+            front_title: null,
+            verify: {
+                furl: null
+            }
         },
 
         subjects: [],
@@ -285,7 +287,9 @@ export default {
             }
         },
 
-        displayImage: function(){}
+        displayImage: function(document){
+            this.employee.verify = document;
+        }
     }
 };
 </script>

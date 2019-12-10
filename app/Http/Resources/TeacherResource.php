@@ -40,6 +40,7 @@ class TeacherResource extends JsonResource
                 'value' => optional($this->education)->id,
                 'text' => optional($this->education)->name,
             ],
+            'verify' => null,
             'subjects' => SubjectList::collection($this->subjects),
             'documents' => DocumentResource::collection($this->documents),
             'register' => $this->register,

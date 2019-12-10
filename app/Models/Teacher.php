@@ -213,6 +213,17 @@ class Teacher extends Model
                 }
             }
 
+            if ($request->verify) {
+                $xdocument = Document::find($request->verify['id']);
+
+                if ($xdocument) {
+                    $xdocument->kind = 'VERIFICATION';
+                    $xdocument->documentable_id = $model->id;
+                    $xdocument->documentable_type = 'App\Models\Teacher';
+                    $xdocument->save();
+                }
+            }
+
             if ($request->subjects && count($request->subjects)) {
                 $subjects = [];
 
