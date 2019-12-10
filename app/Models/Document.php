@@ -104,7 +104,7 @@ class Document extends Model
     {
         $chunk_inpt = 'fileUpload';
         $chunk_fldr = 'chunks';
-        $chunk_maxi = 12;
+        $chunk_maxi = 48;
         $chunk_mxsz = 250000;
         $chunk_uuid = $request->uuid;
         $chunk_indx = (int) $request->partIndex;
