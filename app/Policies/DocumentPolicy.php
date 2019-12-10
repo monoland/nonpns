@@ -19,7 +19,7 @@ class DocumentPolicy
      */
     public function before($user, $ability)
     {
-        if ($user->isOperator() || $user->isAdministrator()) {
+        if ($user->isOperator() || $user->isAdministrator() || $user->isVerificator()) {
             return true;
         }
     }
