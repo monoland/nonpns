@@ -232,6 +232,7 @@ class Teacher extends Model
                     $xdocument->documentable_type = 'App\Models\Teacher';
                     $xdocument->save();
 
+                    $model->user_id = $request->user()->id;
                     $model->verified = true;
                     $model->save();
                 }
