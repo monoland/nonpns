@@ -185,7 +185,7 @@
                                         </v-document-upload>
                                     </v-btn>
                                     <template v-if="employee.verify && employee.verify.furl">
-                                        <v-img :src="employee.verify.furl"></v-img>
+                                        <v-img :src="'/sipandik' + employee.verify.furl"></v-img>
                                     </template>
                                 </div>
                             </v-card-text>
