@@ -191,7 +191,7 @@
                             </v-card-text>
 
                             <v-card-actions>
-                                <v-btn block :color="employee.verify === null ? 'black' : 'green'" :dark="employee.verify !== null" :disabled="employee.verify === null">Verifikasi</v-btn>
+                                <v-btn block :color="employee.verify === null ? 'black' : 'green'" :dark="employee.verify !== null" :disabled="employee.verify === null" @click="updateRecord">Verifikasi</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -289,6 +289,20 @@ export default {
 
         displayImage: function(document){
             this.employee.verify = document;
+        },
+
+        updateRecord: async function() {
+            try {
+                await this.http.put(`api/teacher/${this.$route.params.teacher}`, this.employee);
+
+                this.$store.dispatch('message', 'proses update berhasil!');
+
+                setTimeout(() => {
+                    this.$router.go(-1);
+                }, 2000);
+            } catch (error) {
+                this.$store.dispatch('errors', error);
+            }
         }
     }
 };

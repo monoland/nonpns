@@ -85,6 +85,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Undocumented function.
+     *
+     * @return bool
+     */
+    public function isVerificator()
+    {
+        return $this->authent->name === 'verificator';
+    }
+
+    /**
      * Scope for filter.
      */
     public function scopeFilterOn($query, $request)

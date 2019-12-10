@@ -45,7 +45,7 @@ class TeacherPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isOperator();
+        return $user->isOperator() || $user->isVerificator();
     }
 
     /**
@@ -68,7 +68,7 @@ class TeacherPolicy
      */
     public function update(User $user, Teacher $teacher)
     {
-        return $user->isOperator();
+        return $user->isOperator() || $user->isVerificator();
     }
 
     /**

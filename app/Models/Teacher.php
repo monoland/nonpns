@@ -58,7 +58,17 @@ class Teacher extends Model
      */
     public function documents()
     {
-        return $this->morphMany(Document::class, 'documentable');
+        return $this->morphMany(Document::class, 'documentable')->where('documents.kind', '<>', 'VERIFICATION');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function verify()
+    {
+        return $this->morphOne(Document::class, 'documentable')->where('documents.kind', 'VERIFICATION');
     }
 
     /**
@@ -221,6 +231,9 @@ class Teacher extends Model
                     $xdocument->documentable_id = $model->id;
                     $xdocument->documentable_type = 'App\Models\Teacher';
                     $xdocument->save();
+
+                    $model->verified = true;
+                    $model->save();
                 }
             }
 

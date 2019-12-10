@@ -106,6 +106,33 @@ class WebController extends Controller
                 ]);
                 break;
 
+            case 'verificator':
+                return response()->json([
+                    'deskbar' => [
+                        ['type' => 'item', 'icon' => 'dashboard', 'text' => 'Beranda', 'to' => ['name' => 'home']],
+                        // master
+                        ['type' => 'subheader', 'text' => 'Master', 'class' => 'mt-2'],
+                        ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Kantor Cabang', 'to' => ['name' => 'branch']],
+            
+                    ],
+                    'mobibar' => [
+                        // master
+                        ['type' => 'subheader', 'text' => 'Master', 'class' => 'mt-2'],
+                        ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Kantor Cabang', 'to' => ['name' => 'branch']],
+                    ],
+                    'homebar' => [
+                        ['type' => 'item', 'icon' => 'dashboard', 'text' => 'Beranda', 'to' => ['name' => 'home']],
+                        ['type' => 'item', 'icon' => 'perm_identity', 'text' => 'Profile', 'to' => ['name' => 'profile']],
+                        ['type' => 'item', 'icon' => 'lock', 'text' => 'Katasandi', 'to' => ['name' => 'password']],
+                    ],
+                    'account' => [
+                        ['type' => 'item', 'icon' => 'perm_identity', 'text' => 'Profile', 'to' => ['name' => 'profile']],
+                        ['type' => 'item', 'icon' => 'lock', 'text' => 'Katasandi', 'to' => ['name' => 'password']],
+                        ['type' => 'item', 'icon' => 'settings', 'text' => 'Setting', 'to' => ['name' => 'setting']],
+                    ],
+                ]);
+                break;
+
             default:
                 return response()->json([
                     'deskbar' => [
