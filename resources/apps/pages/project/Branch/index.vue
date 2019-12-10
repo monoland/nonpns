@@ -71,9 +71,9 @@ export default {
             { text: 'SMK', value: 'smk' },
             { text: 'SKh', value: 'skh' },
             { text: 'Pegawai', value: 'teachers' },
-            { text: 'Update', value: 'updates', align: 'end' },
+            { text: 'Update', value: 'updated', align: 'end' },
             { text: null, value: 'update_percent' },
-            { text: 'Verifikasi', value: 'verifies', align: 'end' },
+            { text: 'Verifikasi', value: 'verified', align: 'end' },
             { text: null, value: 'verify_percent' },
         ]);
 
