@@ -223,7 +223,7 @@ class Teacher extends Model
                 }
             }
 
-            if ($request->verify) {
+            if ($request->verify && count($request->verify)) {
                 $xdocument = Document::find($request->verify['id']);
 
                 if ($xdocument) {
