@@ -19,7 +19,7 @@ class BranchPolicy
      */
     public function before($user, $ability)
     {
-        if ($user->isAdministrator() || $user->isVerificator()) {
+        if ($user->isAdministrator()) {
             return true;
         }
     }
@@ -45,7 +45,7 @@ class BranchPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isVerificator();
     }
 
     /**
