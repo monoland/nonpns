@@ -198,7 +198,11 @@ class Teacher extends Model
             $model->gender = $request->gender['value'];
             $model->born_place = $request->born_place;
             $model->born_date = $request->born_date;
-            $model->status = $request->status['value'];
+            if (is_array($request->status)) {
+                $model->status = $request->status['value'];
+            } else {
+                $model->status = $request->status;
+            }
             $model->tmt = $request->tmt;
             $model->merried = $request->merried['value'];
             $model->source = $request->source['value'];
