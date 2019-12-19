@@ -109,7 +109,7 @@ class Teacher extends Model
      */
     public function school()
     {
-        return $this->belongsToMany(School::class)->wherePivot('mandatory', true);
+        return $this->belongsTo(School::class);
     }
 
     /**
