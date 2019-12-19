@@ -8,11 +8,6 @@ Object.keys(Parts).forEach((part) => {
     Vue.component(Parts[part].name, Parts[part]);
 });
 
-// transition
-import { createSimpleTransition } from 'vuetify/es5/util/helpers';
-const dialogMove = createSimpleTransition('dialog-move-transition');
-Vue.component('dialog-move-transition', dialogMove);
-
 // add press directive
 import Hammer from 'hammerjs';
 Vue.directive('press', {

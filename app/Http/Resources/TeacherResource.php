@@ -40,6 +40,14 @@ class TeacherResource extends JsonResource
                 'value' => optional($this->education)->id,
                 'text' => optional($this->education)->name,
             ],
+            'school' => [
+                'value' => optional($this->school)->id,
+                'text' => optional($this->school)->name,
+            ],
+            'branch' => [
+                'value' => optional($this->branch)->id,
+                'text' => optional($this->branch)->name,
+            ],
             'verify' => $this->verify,
             'subjects' => SubjectList::collection($this->subjects),
             'documents' => DocumentResource::collection($this->documents),

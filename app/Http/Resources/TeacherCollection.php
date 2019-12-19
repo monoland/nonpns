@@ -32,7 +32,6 @@ class TeacherCollection extends ResourceCollection
                 'combos' => [
                     'subjects' => Subject::fetchCombo()
                 ],
-        //         'info' => null,
             ],
         ];
     }

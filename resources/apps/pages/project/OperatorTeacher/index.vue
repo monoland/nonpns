@@ -7,9 +7,32 @@
         searchable 
         with-progress
     >
-        <v-desktop-table v-if="desktop"
-            single
-        ></v-desktop-table>
+        <v-widget table v-if="desktop">
+            <v-data-table
+                v-model="table.selected"
+                :headers="headers"
+                :items="records"
+                :single-select="true"
+                :loading="table.loader"
+                :options.sync="table.options"
+                :server-items-length="table.total"
+                :footer-props="table.footerProps"
+                item-key="id"
+                show-select
+            >
+                <template #:progress>
+                    <v-progress-linear :color="color" height="1" indeterminate></v-progress-linear>
+                </template>
+
+                <template v-slot:item.updated="{ item: { updated } }">
+                    <v-icon>{{ updated ? 'check' : 'close' }}</v-icon>
+                </template>
+
+                <template v-slot:item.verified="{ item: { verified } }">
+                    <v-icon>{{ verified ? 'check' : 'close' }}</v-icon>
+                </template>
+            </v-data-table>
+        </v-widget>
 
         <v-mobile-table icon="perm_identity" v-else>
             <template v-slot:default="{ item }">
@@ -307,9 +330,10 @@ export default {
     created() {
         this.tableHeaders([
             { text: 'Name', value: 'name' },
-            { text: 'Tmp Lahir', value: 'born_place' },
-            { text: 'Tgl Lahir', value: 'born_date' },
-            { text: 'Updated', value: 'updated_at', class: 'datetime-field' }
+            { text: 'Sekolah', value: 'school.text' },
+            { text: 'KCD', value: 'branch.text' },
+            { text: 'Updated', value: 'updated', class: 'count-field' },
+            { text: 'Verified', value: 'verified', class: 'count-field' },
         ]);
 
         this.pageInfo({

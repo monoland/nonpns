@@ -117,6 +117,16 @@ class Teacher extends Model
      *
      * @return void
      */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function schools()
     {
         return $this->belongsToMany(School::class)
@@ -129,7 +139,8 @@ class Teacher extends Model
     public function scopeFetchCombo($query)
     {
         return $query->select(
-            'name AS text', 'id AS value'
+            'name AS text',
+            'id AS value'
         )->get();
     }
 
@@ -214,7 +225,7 @@ class Teacher extends Model
             if ($request->documents && count($request->documents)) {
                 foreach ($request->documents as $document) {
                     $xdocument = Document::find($document['id']);
-                    
+
                     if ($xdocument) {
                         $xdocument->kind = $document['kind'];
                         $xdocument->kind_numb = $document['kind_numb'];
@@ -256,7 +267,7 @@ class Teacher extends Model
                             'name' => $subject,
                             'slug' => Str::slug($subject)
                         ]);
-                        
+
                         $subjects[$newSubject->id] = [
                             'mandatory' => $index === 0 ? true : false
                         ];
