@@ -330,8 +330,8 @@ export default {
     created() {
         this.tableHeaders([
             { text: 'Name', value: 'name' },
-            { text: 'Sekolah', value: 'school.text' },
-            { text: 'KCD', value: 'branch.text' },
+            { text: 'Tmp Lahir', value: 'born_place' },
+            { text: 'Tgl Lahir', value: 'born_date' },
             { text: 'Updated', value: 'updated', class: 'count-field' },
             { text: 'Verified', value: 'verified', class: 'count-field' },
         ]);
