@@ -28,8 +28,8 @@
                     <v-icon>{{ updated ? 'check' : 'close' }}</v-icon>
                 </template>
 
-                <template v-slot:item.verified="{ item: { verified } }">
-                    <v-icon>{{ verified ? 'check' : 'close' }}</v-icon>
+                <template v-slot:item.verified="{ item }">
+                    <v-icon>{{ item.verify === null ? 'close' : 'check' }}</v-icon>
                 </template>
             </v-data-table>
         </v-widget>
