@@ -165,15 +165,15 @@ class Document extends Model
         $chunk_file = explode('.', $request->fileName);
         $chunk_extn = array_pop($chunk_file);
 
-        $chunk_path = storage_path('chunks'.DIRECTORY_SEPARATOR.$chunk_uuid);
-        $store_path = 'uploads'.DIRECTORY_SEPARATOR.$chunk_uuid.'.'.$chunk_extn;
+        $chunk_path = storage_path('chunks' . DIRECTORY_SEPARATOR . $chunk_uuid);
+        $store_path = 'uploads' . DIRECTORY_SEPARATOR . $chunk_uuid . '.' . $chunk_extn;
         $media_path = storage_path($store_path);
 
         try {
             $media_trgt = fopen($media_path, 'wb');
 
             for ($i = 0; $i < $chunk_ttal; ++$i) {
-                $chunk = fopen($chunk_path.DIRECTORY_SEPARATOR.$i, 'rb');
+                $chunk = fopen($chunk_path . DIRECTORY_SEPARATOR . $i, 'rb');
                 stream_copy_to_stream($chunk, $media_trgt);
                 fclose($chunk);
             }
@@ -187,11 +187,11 @@ class Document extends Model
             $model->extn = File::extension(storage_path($store_path));
             $model->type = File::type(storage_path($store_path));
             $model->mime = File::mimeType(storage_path($store_path));
-            $model->path = $chunk_uuid.'.'.$model->extn;
+            $model->path = $chunk_uuid . '.' . $model->extn;
             $model->hash = sha1($chunk_uuid);
 
-            if (in_array($model->extn, ['jpg', 'jpeg', 'png'])) {
-                $model->furl = '/mediafiles/original/'.$chunk_uuid.'.'.$model->extn;
+            if (in_array(strtolower($model->extn), ['jpg', 'jpeg', 'png'])) {
+                $model->furl = '/mediafiles/original/' . $chunk_uuid . '.' . $model->extn;
             }
 
             $request->user()->documents()->save($model);
@@ -250,7 +250,7 @@ class Document extends Model
             $model->delete();
 
             File::delete(storage_path(
-                'uploads'.DIRECTORY_SEPARATOR.$model->path
+                'uploads' . DIRECTORY_SEPARATOR . $model->path
             ));
 
             DB::commit();
@@ -287,7 +287,7 @@ class Document extends Model
     public function cleanChunks($uuid)
     {
         try {
-            $dir = storage_path('chunks'.DIRECTORY_SEPARATOR.$uuid);
+            $dir = storage_path('chunks' . DIRECTORY_SEPARATOR . $uuid);
 
             $its = new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS);
             $fls = new \RecursiveIteratorIterator($its, \RecursiveIteratorIterator::CHILD_FIRST);
