@@ -150,7 +150,7 @@ class Teacher extends Model
     public function scopeFilterOn($query, $request)
     {
         $sortaz = $request->sortDesc === 'true' ? 'desc' : 'asc';
-        $sortby = $request->has('sortBy') ? $request->sortBy : null;
+        $sortby = $request->has('sortBy') ? $request->sortBy : 'name';
         $search = $request->has('search') ? strtolower($request->search) : null;
         // $filton = $request->has('filterOn') ? $request->filterOn : null;
         // $filtby = $request->has('filterBy') ? $request->filterBy : null;
