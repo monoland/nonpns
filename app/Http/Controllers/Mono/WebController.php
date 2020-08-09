@@ -82,7 +82,7 @@ class WebController extends Controller
                         ['type' => 'subheader', 'text' => 'Master', 'class' => 'mt-2'],
                         ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Kantor Cabang', 'to' => ['name' => 'branch']],
                         ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Mata Pelajaran', 'to' => ['name' => 'subject']],
-                        
+
                         // utilitas
                         ['type' => 'subheader', 'text' => 'Utilitas', 'class' => 'mt-2'],
                         ['type' => 'item', 'icon' => 'people', 'text' => 'Pengguna', 'to' => ['name' => 'user']],
@@ -113,7 +113,7 @@ class WebController extends Controller
                         // master
                         ['type' => 'subheader', 'text' => 'Master', 'class' => 'mt-2'],
                         ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Kantor Cabang', 'to' => ['name' => 'branch']],
-            
+
                     ],
                     'mobibar' => [
                         // master
@@ -137,9 +137,10 @@ class WebController extends Controller
                 return response()->json([
                     'deskbar' => [
                         ['type' => 'item', 'icon' => 'dashboard', 'text' => 'Beranda', 'to' => ['name' => 'home']],
-                        
+
                         ['type' => 'subheader', 'text' => 'Master', 'class' => 'mt-2'],
                         ['type' => 'item', 'icon' => 'filter_none', 'text' => 'Pegawai', 'to' => ['name' => 'operator-teacher']],
+                        ['type' => 'item', 'icon' => 'filter_none', 'text' => 'D.S.O', 'to' => ['name' => 'requirement']],
                     ],
                     'mobibar' => [],
                     'homebar' => [],

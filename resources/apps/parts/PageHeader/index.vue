@@ -187,13 +187,19 @@ export default {
         }
     },
 
+    created() {
+        this.disabledButton({
+            add: !this.enableAdd,
+        });
+    },
+
     data:() => ({
         searchText: null
     }),
 
     methods: {
         ...mapActions([
-            'editFormOpen', 'newFormOpen', 'recordReload', 
+            'disabledButton', 'editFormOpen', 'newFormOpen', 'recordReload', 
             'searchClose', 'searchOpen', 'trashFormClose', 'trashFormOpen'
         ]),
 

@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\DB;
-use App\Http\Resources\SchoolResource;
-use Illuminate\Database\Eloquent\Model;
+// use App\Http\Resources\RequirementResource;
 
-class School extends Model
+use App\Http\Resources\RequirementResource;
+use App\Traits\HasMetaField;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+// use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Requirement extends Model
 {
+    // use HasMetaField, SoftDeletes;
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -50,14 +56,12 @@ class School extends Model
      */
     protected $fillable = [];
 
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function branch()
+
+    // relations
+
+    public function subject()
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Subject::class);
     }
 
     /**
@@ -65,40 +69,9 @@ class School extends Model
      *
      * @return void
      */
-    public function city()
+    public function school()
     {
-        return $this->belongsTo(City::class);
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function user()
-    {
-        return $this->morphOne(User::class, 'userable');
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function teachers()
-    {
-        return $this->belongsToMany(Teacher::class)
-            ->withPivot('mandatory');
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function requirements()
-    {
-        return $this->hasMany(Requirement::class);
+        return $this->belongsTo(School::class);
     }
 
     /**
@@ -143,18 +116,22 @@ class School extends Model
     /**
      * Store
      */
-    public static function storeRecord($request)
+    public static function storeRecord($request, $parent)
     {
         DB::beginTransaction();
 
         try {
             $model = new static;
-            // ...
-            $model->save();
+            $model->status = $request->status['value'];
+            $model->subject_id = $request->subject['value'];
+            $model->require = $request->require;
+            $model->available = $request->available;
+            $model->balance = intval($request->require) - intval($request->available);
+            $parent->requirements()->save($model);
 
             DB::commit();
 
-            return new SchoolResource($model);
+            return new RequirementResource($model);
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -170,12 +147,14 @@ class School extends Model
         DB::beginTransaction();
 
         try {
-            // ...
+            $model->require = $request->require;
+            $model->available = $request->available;
+            $model->balance = intval($request->require) - intval($request->available);
             $model->save();
 
             DB::commit();
 
-            return new SchoolResource($model);
+            return new RequirementResource($model);
         } catch (\Exception $e) {
             DB::rollBack();
 
