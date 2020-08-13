@@ -1,7 +1,17 @@
 <template>
-    <v-page-wrap crud absolute searchable with-progress>
+    <v-page-wrap 
+        crud 
+        absolute 
+        searchable 
+        with-progress
+        enable-print
+    >
         <template #navigate>
             <v-btn-tips @click="$router.go(-1)" label="branch" icon="arrow_back" :show="true" />
+        </template>
+
+        <template #print-button>
+            <v-btn-tips @click="printReport" label="PRINT" icon="print" :show="!disabled.refresh" />
         </template>
 
         <template #toolbar-default>
@@ -49,6 +59,52 @@
                 </v-col>
             </v-row>
         </v-page-form>
+
+        <v-row id="print-area" style="display: none;">
+            <v-simple-table dense>
+                <template v-slot:default>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Sekolah</th>
+                            <th>Pegawai</th>
+                            <th>Kebutuhan</th>
+                            <th>Tersedia</th>
+                            <th>Selisih</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template v-for="(item, index) in records">
+                            <tr :key="index">
+                                <td v-html="index + 1"></td>
+                                <td v-html="item.name"></td>
+                                <td v-html="item.verified"></td>
+                                <td v-html="item.require"></td>
+                                <td v-html="item.available"></td>
+                                <td v-html="item.balance"></td>
+                            </tr>
+
+                            <tr v-for="(detail, idx) in item.details" :key="idx">
+                                <td></td>
+                                <td colspan="2">{{ detail.status }} - {{ detail.subject.text }}</td>
+                                <td v-html="detail.require"></td>
+                                <td v-html="detail.available"></td>
+                                <td v-html="detail.balance"></td>
+                            </tr>
+                        </template>
+
+                        <tr>
+                            <td>TOTAL</td>
+                            <td v-html="totalVerified"></td>
+                            <td v-html="totalRequire"></td>
+                            <td v-html="totalAvailable"></td>
+                            <td v-html="totalBalance"></td>
+                        </tr>
+                    </tbody>
+                </template>
+            </v-simple-table>
+        </v-row>
     </v-page-wrap>
 </template>
 
@@ -63,6 +119,32 @@ export default {
     route: [
         { path: 'branch/:branch/school', name: 'school', root: 'monoland' },
     ],
+
+    computed: {
+        totalVerified: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.verified);
+            }, 0);
+        },
+
+        totalRequire: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.require);
+            }, 0);
+        },
+
+        totalAvailable: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.available);
+            }, 0);
+        },
+
+        totalBalance: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.balance);
+            }, 0);
+        }
+    },
 
     data:() => ({
         // 
@@ -109,6 +191,42 @@ export default {
             } catch (error) {
                 this.$store.dispatch('errors', error);
             }
+        },
+
+        printReport: async function() {
+            let win = window.open('', 'PRINT', 'height=600,width=1024');
+                win.document.write('<html>');
+                win.document.write('<head>');
+                win.document.write('<title>Print Preview</title>');
+                win.document.write('</head>');
+                win.document.write('<body>');
+                win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
+                win.document.write('<div class="v-application--wrap">');
+                win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
+                win.document.write('<div class="v-content__wrap">');
+                win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                win.document.write(document.getElementById('print-area').innerHTML);
+                win.document.write('</div>');
+                win.document.write('</div>');
+                win.document.write('</main>');
+                win.document.write('</div>');
+                win.document.write('</div>');
+                win.document.write('</body>');
+                win.document.write('</html>');
+
+            let css = win.document.createElement('link');
+                css.type = 'text/css';
+                css.rel = 'stylesheet';
+                css.href = '/styles/monoland.css?version=1'; 
+                css.media = 'all';
+                win.document.getElementsByTagName("head")[0].appendChild(css);
+            
+            setTimeout(() => {
+                win.document.close();
+                win.focus();
+                win.print();
+                win.close();
+            }, 500);
         }
     }
 };

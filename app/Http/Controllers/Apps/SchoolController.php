@@ -25,14 +25,14 @@ class SchoolController extends Controller
 
         return new SchoolCollection(
             $branch->schools()->withCount([
-                'teachers', 
+                'teachers',
                 'teachers as updates_count' => function (Builder $query) {
                     $query->where('updated', true);
-                }, 
+                },
                 'teachers as verifies_count' => function (Builder $query) {
                     $query->where('verified', true);
                 }
-            ])->filterOn($request)->paginate($request->itemsPerPage)
+            ])->filterOn($request)->paginate(1000000)
         );
     }
 
@@ -108,7 +108,7 @@ class SchoolController extends Controller
     public function bulkdelete(Request $request)
     {
         $this->authorize('bulkDelete', School::class);
-        
+
         return School::bulkDelete($request);
     }
 

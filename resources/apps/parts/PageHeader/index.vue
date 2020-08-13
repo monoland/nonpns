@@ -80,9 +80,9 @@
                             <v-btn-tips sticky @click="newFormOpen" label="ADDNEW" icon="add" :show="!disabled.add" />
                         </slot>
                     </v-scale-transition>
-                    
-                    <slot></slot>
 
+                    <slot></slot>
+                    
                     <v-scale-transition>
                         <v-btn-tips @click="editFormOpen" label="EDIT" icon="edit" :show="!disabled.edit" />
                     </v-scale-transition>
@@ -91,9 +91,19 @@
                         <v-btn-tips @click="trashFormOpen" label="DELETE" icon="delete" :show="!disabled.delete" />
                     </v-scale-transition>
 
-                    <v-scale-transition>
-                        <v-btn-tips @click="recordReload" label="REFRESH" icon="refresh" :show="!disabled.refresh" />
-                    </v-scale-transition>
+                    <template v-if="enablePrint">
+                        <v-scale-transition>
+                            <slot name="print-button">
+                                <v-btn-tips @click="recordReload" label="PRINT" icon="print" :show="!disabled.refresh" />
+                            </slot>
+                        </v-scale-transition>
+                    </template>
+
+                    <template v-else>
+                        <v-scale-transition>
+                            <v-btn-tips @click="recordReload" label="REFRESH" icon="refresh" :show="!disabled.refresh" />
+                        </v-scale-transition>
+                    </template>
                 </div>
             </template>
 
@@ -153,6 +163,11 @@ export default {
         enableEdit: {
             type: Boolean,
             default: true
+        },
+
+        enablePrint: {
+            type: Boolean,
+            default: false
         },
 
         flat: {

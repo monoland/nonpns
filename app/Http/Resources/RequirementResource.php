@@ -23,6 +23,7 @@ class RequirementResource extends JsonResource
             ],
             'require' => $this->require,
             'available' => $this->available,
+            'balance' => $this->balance,
 
             'pinned' => false,
             'updated_at' => (string) $this->updated_at,

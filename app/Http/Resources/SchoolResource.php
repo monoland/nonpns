@@ -22,6 +22,10 @@ class SchoolResource extends JsonResource
             'update_percent' => round($this->updates_count / $this->teachers_count * 100, 2) . '%',
             'verified' => $this->verifies_count,
             'verify_percent' => round($this->verifies_count / $this->teachers_count * 100, 2) . '%',
+            'require' => $this->require,
+            'available' => $this->available,
+            'balance' => $this->balance,
+            'details' => RequirementResource::collection($this->requirements),
             'pinned' => false,
             'updated_at' => (string) $this->updated_at,
         ];

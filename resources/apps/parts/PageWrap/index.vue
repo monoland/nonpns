@@ -10,6 +10,7 @@
                 :enable-add="enableAdd"
                 :enable-delete="enableDelete"
                 :enable-edit="enableEdit"
+                :enable-print="enablePrint"
             >
                 <template #navigate>
                     <slot name="navigate"></slot>
@@ -21,6 +22,10 @@
 
                 <template #default>
                     <slot name="toolbar-default"></slot>
+                </template>
+
+                <template #print-button>
+                    <slot name="print-button"></slot>
                 </template>
             </v-page-header>
         </slot>
@@ -63,6 +68,11 @@ export default {
         enableEdit: {
             type: Boolean,
             default: true
+        },
+
+        enablePrint: {
+            type: Boolean,
+            default: false
         },
 
         flat: {

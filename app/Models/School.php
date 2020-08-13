@@ -41,7 +41,11 @@ class School extends Model
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = [
+        'require',
+        'available',
+        'balance'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -94,11 +98,41 @@ class School extends Model
     /**
      * Undocumented function
      *
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
     public function requirements()
     {
         return $this->hasMany(Requirement::class);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getRequireAttribute()
+    {
+        return $this->requirements()->sum('require');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getAvailableAttribute()
+    {
+        return $this->requirements()->sum('available');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getBalanceAttribute()
+    {
+        return $this->requirements()->sum('balance');
     }
 
     /**
