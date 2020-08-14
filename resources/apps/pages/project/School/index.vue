@@ -65,6 +65,15 @@
                 <template v-slot:default>
                     <thead>
                         <tr>
+                            <th colspan="10"><h3>TABEL REKAPITULASI KEBUTUHAN PENDIDIK DAN TENAGA KEPENDIDIKAN</h3></th>
+                        </tr>
+                        <tr>
+                            <th colspan="10"><h3>PEMERINTAH PROVINSI BANTEN</h3></th>
+                        </tr>
+
+                        <tr><th colspan="10">{{ info.name }}</th></tr>
+
+                        <tr>
                             <th>No</th>
                             <th>Nama Sekolah</th>
                             <th>Pegawai</th>

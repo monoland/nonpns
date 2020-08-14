@@ -27,10 +27,10 @@ class SchoolCollection extends ResourceCollection
     public function with($request)
     {
         return [
-        //     'additional' => [
-        //         'combos' => [],
-        //         'info' => null,
-        //     ],
+            'additional' => [
+                // 'combos' => [],
+                'info' => $request->branch,
+            ],
         ];
     }
 }

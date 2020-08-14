@@ -4,7 +4,7 @@ export const pageMixins = {
     computed: {
         ...mapState([
             'combos', 'disabled', 'form', 'headers', 'http', 'page', 
-            'record', 'records', 'table', 'toolbar'
+            'record', 'records', 'table', 'toolbar', 'info'
         ]),
 
         desktop: function() {
