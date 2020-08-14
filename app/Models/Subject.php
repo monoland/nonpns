@@ -67,7 +67,8 @@ class Subject extends Model
     public function scopeFetchCombo($query)
     {
         return $query->select(
-            'name AS text', 'id AS value'
+            'name AS text',
+            'id AS value'
         )->get();
     }
 
@@ -129,7 +130,7 @@ class Subject extends Model
         DB::beginTransaction();
 
         try {
-            // ...
+            $model->name = $request->name;
             $model->save();
 
             DB::commit();

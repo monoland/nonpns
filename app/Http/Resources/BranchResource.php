@@ -24,6 +24,7 @@ class BranchResource extends JsonResource
             'teachers' => $this->teachers_count,
             'require' => $this->schools->sum('require'),
             'available' => $this->schools->sum('available'),
+            'honorer' => $this->schools->sum('honorer'),
             'balance' => $this->schools->sum('balance'),
             'updated' => $this->updates_count,
             'update_percent' => round($this->updates_count / $this->teachers_count * 100, 2) . '%',

@@ -44,6 +44,7 @@ class School extends Model
     protected $appends = [
         'require',
         'available',
+        'honorer',
         'balance'
     ];
 
@@ -123,6 +124,16 @@ class School extends Model
     public function getAvailableAttribute()
     {
         return $this->requirements()->sum('available');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getHonorerAttribute()
+    {
+        return $this->requirements()->sum('honorer');
     }
 
     /**

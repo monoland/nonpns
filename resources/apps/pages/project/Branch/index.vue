@@ -67,7 +67,8 @@
                             <th>Sekolah</th>
                             <th>Pegawai</th>
                             <th>Kebutuhan</th>
-                            <th>Tersedia</th>
+                            <th>Tersedia ASN</th>
+                            <th>Non ASN</th>
                             <th>Selisih</th>
                         </tr>
                     </thead>
@@ -82,6 +83,7 @@
                             <td v-html="item.verified"></td>
                             <td v-html="item.require"></td>
                             <td v-html="item.available"></td>
+                            <td v-html="item.honorer"></td>
                             <td v-html="item.balance"></td>
                         </tr>
 
@@ -90,6 +92,7 @@
                             <td v-html="totalVerified"></td>
                             <td v-html="totalRequire"></td>
                             <td v-html="totalAvailable"></td>
+                            <td v-html="totalHonorer"></td>
                             <td v-html="totalBalance"></td>
                         </tr>
                     </tbody>
@@ -127,6 +130,12 @@ export default {
         totalAvailable: function() {
             return this.records.reduce((prv, itm) => {
                 return prv + parseInt(itm.available);
+            }, 0);
+        },
+
+        totalHonorer: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.honorer);
             }, 0);
         },
 

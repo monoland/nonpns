@@ -61,7 +61,7 @@
         </v-page-form>
 
         <v-row id="print-area" style="display: none;">
-            <v-simple-table dense>
+            <v-simple-table dense v-if="table.selected.length <= 0">
                 <template v-slot:default>
                     <thead>
                         <tr>
@@ -69,7 +69,8 @@
                             <th>Nama Sekolah</th>
                             <th>Pegawai</th>
                             <th>Kebutuhan</th>
-                            <th>Tersedia</th>
+                            <th>Tersedia ASN</th>
+                            <th>Non ASN</th>
                             <th>Selisih</th>
                         </tr>
                     </thead>
@@ -82,24 +83,45 @@
                                 <td v-html="item.verified"></td>
                                 <td v-html="item.require"></td>
                                 <td v-html="item.available"></td>
+                                <td v-html="item.honorer"></td>
                                 <td v-html="item.balance"></td>
-                            </tr>
-
-                            <tr v-for="(detail, idx) in item.details" :key="idx">
-                                <td></td>
-                                <td colspan="2">{{ detail.status }} - {{ detail.subject.text }}</td>
-                                <td v-html="detail.require"></td>
-                                <td v-html="detail.available"></td>
-                                <td v-html="detail.balance"></td>
                             </tr>
                         </template>
 
                         <tr>
-                            <td>TOTAL</td>
+                            <td colspan="2">TOTAL</td>
                             <td v-html="totalVerified"></td>
                             <td v-html="totalRequire"></td>
                             <td v-html="totalAvailable"></td>
+                            <td v-html="totalHonorer"></td>
                             <td v-html="totalBalance"></td>
+                        </tr>
+                    </tbody>
+                </template>
+            </v-simple-table>
+
+            <v-simple-table dense v-else>
+                <template v-slot:default>
+                    <thead>
+                        <tr>
+                            <th><h3>{{ record.name }}</h3></th>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Kebutuhan</th>
+                            <th>Tersedia ASN</th>
+                            <th>Non ASN</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="(item, index) in record.details" :key="index">
+                            <td>{{ item.status }} - {{ item.subject.text }}</td>
+                            <td v-html="item.require"></td>
+                            <td v-html="item.available"></td>
+                            <td v-html="item.honorer"></td>
+                            <td v-html="item.balance"></td>
                         </tr>
                     </tbody>
                 </template>
@@ -136,6 +158,12 @@ export default {
         totalAvailable: function() {
             return this.records.reduce((prv, itm) => {
                 return prv + parseInt(itm.available);
+            }, 0);
+        },
+
+        totalHonorer: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.honorer);
             }, 0);
         },
 
