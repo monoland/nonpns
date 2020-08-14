@@ -20,7 +20,7 @@ class RequirementController extends Controller
         $this->authorize('viewAny', Requirement::class);
 
         return new RequirementCollection(
-            School::find($request->user()->userable->id)->requirements()->filterOn($request)->paginate($request->itemsPerPage)
+            School::find($request->user()->userable->id)->requirements()->filterOn($request)->paginate(1000)
         );
     }
 
