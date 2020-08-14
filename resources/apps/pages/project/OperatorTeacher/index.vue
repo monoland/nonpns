@@ -25,11 +25,11 @@
                     <v-progress-linear :color="color" height="1" indeterminate></v-progress-linear>
                 </template>
 
-                <template v-slot:item.updated="{ item: { updated } }">
+                <template v-slot:[`item.updated`]="{ item: { updated } }">
                     <v-icon>{{ updated ? 'check' : 'close' }}</v-icon>
                 </template>
 
-                <template v-slot:item.verified="{ item }">
+                <template v-slot:[`item.verified`]="{ item }">
                     <v-icon>{{ item.verify === null ? 'close' : 'check' }}</v-icon>
                 </template>
             </v-data-table>
@@ -374,7 +374,7 @@ export default {
             } catch (error) {
                 this.$store.dispatch('errors', error);
             }
-        }
+        },
     },
 };
 </script>

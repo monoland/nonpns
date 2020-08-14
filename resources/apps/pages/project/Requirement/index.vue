@@ -4,7 +4,12 @@
         absolute 
         searchable 
         with-progress
+        enable-print
     >
+        <template #print-button>
+            <v-btn-tips @click="printReport" label="PRINT" icon="print" :show="!disabled.refresh" />
+        </template>
+
         <v-widget table v-if="desktop">
             <v-data-table
                 v-model="table.selected"
@@ -72,6 +77,96 @@
                 </v-col>
             </v-row>
         </v-page-form>
+
+        <v-row id="print-area" style="display: none;">
+            <v-simple-table dense>
+                <template v-slot:default>
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                                <!-- <div class="font-weight-bold">BERITA ACARA</div> -->
+                                <h3 class="text-center">BERITA ACARA</h3>
+                            </th>
+                        </tr>
+                        <tr><th colspan="4"></th></tr>
+                        <tr>
+                            <th colspan="4">Pada hari ini____________________ Tanggal______ Bulan___________________ Tahun_________</th>
+                        </tr>
+                        <tr>
+                            <th colspan="4">Bertempat di SMA/SMK/SKh___________________________________________________________</th>
+                        </tr>
+                        <tr>
+                            <th colspan="4">telah melakukan pendataan kebutuhan pendidik dan tenaga kependidikan dan telah di verifikasi -</th>
+                        </tr>
+                        <tr>
+                            <th colspan="4">oleh yang bertanda tangan dibawah ini:</th>
+                        </tr>
+                        <tr><th colspan="4"></th></tr>
+                        
+                        <tr>
+                            <th>Nama</th>
+                            <th colspan="3">: __________________________________________________________________</th>
+                        </tr>
+                        <tr>
+                            <th>NIP</th>
+                            <th colspan="3">: __________________________________________________________________</th>
+                        </tr>
+                        <tr><th colspan="4"></th></tr>
+                        <tr>
+                            <th colspan="4">Dengan hasil sebagai berikut:</th>
+                        </tr>
+
+                        <tr>
+                            <th>Status</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Kebutuhan</th>
+                            <th>Tersedia</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="(item, index) in records" :key="index">
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.subject.text }}</td>
+                            <td>{{ item.require }}</td>
+                            <td>{{ item.available }}</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">JUMLAH</td>
+                            <td>{{ totalRequire }}</td>
+                            <td>{{ totalAvailable }}</td>
+                        </tr>
+
+
+                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+
+                        <tr>
+                            <td colspan="4" style="border-bottom: 0;">Demikian Berita Acara ini dibuat untuk dipergunakan sebagaimana mestinya</td>
+                        </tr>
+
+                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+
+                        <tr>
+                            <td colspan="2" style="border-bottom: 0;"></td>
+                            <td colspan="2" style="border-bottom: 0; text-align: center;">KEPALA SEKOLAH</td>
+                        </tr>
+
+                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        
+
+                        <tr>
+                            <td colspan="2" style="border-bottom: 0;"></td>
+                            <td colspan="2" style="border-bottom: 0; text-align: center;">_______________________________</td>
+                        </tr>
+                    </tbody>
+                </template>
+            </v-simple-table>
+        </v-row>
     </v-page-wrap>
 </template>
 
@@ -95,7 +190,19 @@ export default {
             }
 
             return [];
-        }
+        },
+
+        totalRequire: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.require);
+            }, 0);
+        },
+
+        totalAvailable: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.available);
+            }, 0);
+        },
     },
 
     data:() => ({
@@ -127,6 +234,44 @@ export default {
             require: 0,
             available: 0
         });
+    },
+
+    methods: {
+        printReport: function() {
+            let win = window.open('', 'PRINT', 'height=600,width=1024');
+                win.document.write('<html>');
+                win.document.write('<head>');
+                win.document.write('<title>Print Preview</title>');
+                win.document.write('</head>');
+                win.document.write('<body>');
+                win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
+                win.document.write('<div class="v-application--wrap">');
+                win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
+                win.document.write('<div class="v-content__wrap">');
+                win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                win.document.write(document.getElementById('print-area').innerHTML);
+                win.document.write('</div>');
+                win.document.write('</div>');
+                win.document.write('</main>');
+                win.document.write('</div>');
+                win.document.write('</div>');
+                win.document.write('</body>');
+                win.document.write('</html>');
+
+            let css = win.document.createElement('link');
+                css.type = 'text/css';
+                css.rel = 'stylesheet';
+                css.href = '/styles/monoland.css?version=1'; 
+                css.media = 'all';
+                win.document.getElementsByTagName("head")[0].appendChild(css);
+            
+            setTimeout(() => {
+                win.document.close();
+                win.focus();
+                win.print();
+                win.close();
+            }, 500);
+        }
     }
 }
 </script>
