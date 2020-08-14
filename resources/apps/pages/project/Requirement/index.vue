@@ -38,9 +38,9 @@
             </template>
         </v-mobile-table>
 
-        <v-page-form small>
+        <v-page-form>
             <v-row>
-                <v-col cols="3">
+                <v-col cols="2">
                     <v-combobox
                         label="Status Pegawai"
                         :items="statuses"
@@ -50,7 +50,7 @@
                     ></v-combobox>
                 </v-col>
 
-                <v-col cols="5">
+                <v-col cols="4">
                     <v-combobox
                         label="Keterangan"
                         :items="subjects"
@@ -70,9 +70,17 @@
 
                 <v-col cols="2">
                     <v-text-field
-                        label="Tersedia"
+                        label="Tersedia ASN"
                         :color="$root.theme"
                         v-model="record.available"
+                    ></v-text-field>
+                </v-col>
+
+                <v-col cols="2">
+                    <v-text-field
+                        label="Tersedia Non ASN"
+                        :color="$root.theme"
+                        v-model="record.honorer"
                     ></v-text-field>
                 </v-col>
             </v-row>
@@ -83,44 +91,45 @@
                 <template v-slot:default>
                     <thead>
                         <tr>
-                            <th colspan="4">
+                            <th colspan="5">
                                 <!-- <div class="font-weight-bold">BERITA ACARA</div> -->
                                 <h3 class="text-center">BERITA ACARA</h3>
                             </th>
                         </tr>
-                        <tr><th colspan="4"></th></tr>
+                        <tr><th colspan="5"></th></tr>
                         <tr>
-                            <th colspan="4">Pada hari ini____________________ Tanggal______ Bulan___________________ Tahun_________</th>
+                            <th colspan="5">Pada hari ini____________________ Tanggal______ Bulan___________________ Tahun_________</th>
                         </tr>
                         <tr>
-                            <th colspan="4">Bertempat di SMA/SMK/SKh___________________________________________________________</th>
+                            <th colspan="5">Bertempat di SMA/SMK/SKh___________________________________________________________</th>
                         </tr>
                         <tr>
-                            <th colspan="4">telah melakukan pendataan kebutuhan pendidik dan tenaga kependidikan dan telah di verifikasi -</th>
+                            <th colspan="5">telah melakukan pendataan kebutuhan pendidik dan tenaga kependidikan dan telah di verifikasi -</th>
                         </tr>
                         <tr>
-                            <th colspan="4">oleh yang bertanda tangan dibawah ini:</th>
+                            <th colspan="5">oleh yang bertanda tangan dibawah ini:</th>
                         </tr>
-                        <tr><th colspan="4"></th></tr>
+                        <tr><th colspan="5"></th></tr>
                         
                         <tr>
                             <th>Nama</th>
-                            <th colspan="3">: __________________________________________________________________</th>
+                            <th colspan="4">: __________________________________________________________________</th>
                         </tr>
                         <tr>
                             <th>NIP</th>
-                            <th colspan="3">: __________________________________________________________________</th>
+                            <th colspan="4">: __________________________________________________________________</th>
                         </tr>
-                        <tr><th colspan="4"></th></tr>
+                        <tr><th colspan="5"></th></tr>
                         <tr>
-                            <th colspan="4">Dengan hasil sebagai berikut:</th>
+                            <th colspan="5">Dengan hasil sebagai berikut:</th>
                         </tr>
 
                         <tr>
                             <th>Status</th>
                             <th>Mata Pelajaran</th>
                             <th>Kebutuhan</th>
-                            <th>Tersedia</th>
+                            <th>Tersedia ASN</th>
+                            <th>Non ASN</th>
                         </tr>
                     </thead>
 
@@ -130,37 +139,39 @@
                             <td>{{ item.subject.text }}</td>
                             <td>{{ item.require }}</td>
                             <td>{{ item.available }}</td>
+                            <td>{{ item.honorer }}</td>
                         </tr>
 
                         <tr>
                             <td colspan="2">JUMLAH</td>
                             <td>{{ totalRequire }}</td>
                             <td>{{ totalAvailable }}</td>
+                            <td>{{ totalHonorer }}</td>
                         </tr>
 
 
-                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="5" style="border-bottom: 0;"></td></tr>
 
                         <tr>
-                            <td colspan="4" style="border-bottom: 0;">Demikian Berita Acara ini dibuat untuk dipergunakan sebagaimana mestinya</td>
+                            <td colspan="5" style="border-bottom: 0;">Demikian Berita Acara ini dibuat untuk dipergunakan sebagaimana mestinya</td>
                         </tr>
 
-                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
-                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="5" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="5" style="border-bottom: 0;"></td></tr>
 
                         <tr>
-                            <td colspan="2" style="border-bottom: 0;"></td>
+                            <td colspan="3" style="border-bottom: 0;"></td>
                             <td colspan="2" style="border-bottom: 0; text-align: center;">KEPALA SEKOLAH</td>
                         </tr>
 
-                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
-                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
-                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
-                        <tr><td colspan="4" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="5" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="5" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="5" style="border-bottom: 0;"></td></tr>
+                        <tr><td colspan="5" style="border-bottom: 0;"></td></tr>
                         
 
                         <tr>
-                            <td colspan="2" style="border-bottom: 0;"></td>
+                            <td colspan="3" style="border-bottom: 0;"></td>
                             <td colspan="2" style="border-bottom: 0; text-align: center;">_______________________________</td>
                         </tr>
                     </tbody>
@@ -203,6 +214,12 @@ export default {
                 return prv + parseInt(itm.available);
             }, 0);
         },
+
+        totalHonorer: function() {
+            return this.records.reduce((prv, itm) => {
+                return prv + parseInt(itm.honorer);
+            }, 0);
+        },
     },
 
     data:() => ({
@@ -217,7 +234,8 @@ export default {
             { text: 'Status', value: 'status' },
             { text: 'Mata Pelajaran', value: 'subject.text' },
             { text: 'Kebutuhan', value: 'require', class: 'count-field' },
-            { text: 'Tersedia', value: 'available', class: 'count-field' },
+            { text: 'Tersedia ASN', value: 'available', class: 'count-field' },
+            { text: 'Non ASN', value: 'honorer', class: 'count-field' },
         ]);
 
         this.pageInfo({
@@ -232,7 +250,8 @@ export default {
             status: null,
             subject: null,
             require: 0,
-            available: 0
+            available: 0,
+            honorer: 0
         });
     },
 

@@ -126,7 +126,8 @@ class Requirement extends Model
             $model->subject_id = $request->subject['value'];
             $model->require = $request->require;
             $model->available = $request->available;
-            $model->balance = intval($request->require) - intval($request->available);
+            $model->honorer = $request->honorer;
+            $model->balance = intval($request->require) - (intval($request->available) + intval($request->honorer));
             $parent->requirements()->save($model);
 
             DB::commit();
@@ -149,7 +150,8 @@ class Requirement extends Model
         try {
             $model->require = $request->require;
             $model->available = $request->available;
-            $model->balance = intval($request->require) - intval($request->available);
+            $model->honorer = $request->honorer;
+            $model->balance = intval($request->require) - (intval($request->available) + intval($request->honorer));
             $model->save();
 
             DB::commit();
