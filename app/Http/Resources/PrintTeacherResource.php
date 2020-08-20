@@ -23,7 +23,7 @@ class PrintTeacherResource extends JsonResource
             'born' => $this->born_place . ', ' . date('d F Y', strtotime($this->born_date)),
             'nik' => $this->nik,
             'status' => $this->status . ' Tidak Tetap',
-            'education' => $this->education->name ?: '-',
+            'education' => optional($this->education)->name ?: '-',
             'subject' => $this->subjects->pluck('name')->first() ?: '-',
             'school' => $this->school->name,
             'register' => $this->register ?: '-',
