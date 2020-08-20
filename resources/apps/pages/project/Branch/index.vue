@@ -56,7 +56,7 @@
         </v-page-form>
 
         <v-row id="print-area" style="display: none;">
-            <v-simple-table dense>
+            <v-simple-table dense v-if="table.selected.length <= 0">
                 <template v-slot:default>
                     <thead>
                         <tr>
@@ -103,6 +103,65 @@
                             <td v-html="totalAvailable"></td>
                             <td v-html="totalHonorer"></td>
                             <td v-html="totalBalance"></td>
+                        </tr>
+                    </tbody>
+                </template>
+            </v-simple-table>
+
+            <v-simple-table dense v-else>
+                <template v-slot:default>
+                    <thead>
+                        <tr class="thead-title">
+                            <th colspan="11">DAFTAR PENUGASAN PENDIDIK DAN TENAGA KEPENDIDIKAN NON ASN</th>
+                        </tr>
+                        <tr class="thead-title">
+                            <th colspan="11">JENJANG SMA, SMK DAN SKh SE {{ infokcd }} PROVINSI BANTEN</th>
+                        </tr>
+                        <tr class="thead-title">
+                            <th colspan="11"></th>
+                        </tr>
+                        
+                        <tr class="field">
+                            <th>NO</th>
+                            <th>NAMA</th>
+                            <th>L/P</th>
+                            <th>TEMPAT/TGL. LAHIR</th>
+                            <th>NIK</th>
+                            <th>STATUS PEGAWAI</th>
+                            <th>JENJANG PENDIDIKAN</th>
+                            <th>MAPEL</th>
+                            <th>UNIT KERJA</th>
+                            <th>NUPTK</th>
+                            <th>KAB/KOTA</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">1</th>
+                            <th class="text-center">2</th>
+                            <th class="text-center">3</th>
+                            <th class="text-center">4</th>
+                            <th class="text-center">5</th>
+                            <th class="text-center">6</th>
+                            <th class="text-center">7</th>
+                            <th class="text-center">8</th>
+                            <th class="text-center">9</th>
+                            <th class="text-center">10</th>
+                            <th class="text-center">11</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="(item, index) in teachers" :key="index">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.gender }}</td>
+                            <td>{{ item.born }}</td>
+                            <td>{{ item.nik }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.education }}</td>
+                            <td>{{ item.subject }}</td>
+                            <td>{{ item.school }}</td>
+                            <td>{{ item.register }}</td>
+                            <td>{{ item.city }}</td>
                         </tr>
                     </tbody>
                 </template>
@@ -156,7 +215,8 @@ export default {
     },
 
     data:() => ({
-        // 
+        infokcd: null,
+        teachers: []
     }),
 
     created() {
@@ -200,39 +260,82 @@ export default {
         },
 
         printReport: async function() {
-            let win = window.open('', 'PRINT', 'height=600,width=1024');
-                win.document.write('<html>');
-                win.document.write('<head>');
-                win.document.write('<title>Print Preview</title>');
-                win.document.write('</head>');
-                win.document.write('<body>');
-                win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
-                win.document.write('<div class="v-application--wrap">');
-                win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
-                win.document.write('<div class="v-content__wrap">');
-                win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
-                win.document.write(document.getElementById('print-area').innerHTML);
-                win.document.write('</div>');
-                win.document.write('</div>');
-                win.document.write('</main>');
-                win.document.write('</div>');
-                win.document.write('</div>');
-                win.document.write('</body>');
-                win.document.write('</html>');
+            if (this.table.selected.length > 0) {
+                let { data: { additional: { info }, data } } = await this.http.get(`/api/branch/${this.table.selected[0].id}/teacher`);
 
-            let css = win.document.createElement('link');
-                css.type = 'text/css';
-                css.rel = 'stylesheet';
-                css.href = '/styles/monoland.css?version=1'; 
-                css.media = 'all';
-                win.document.getElementsByTagName("head")[0].appendChild(css);
+                this.teachers = data;
+                this.infokcd = info.toUpperCase();
+
+                setTimeout(() => {
+                    let win = window.open('', 'PRINT', 'height=600,width=1024');
+                        win.document.write('<html>');
+                        win.document.write('<head>');
+                        win.document.write('<title>Print Preview</title>');
+                        win.document.write('</head>');
+                        win.document.write('<body>');
+                        win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
+                        win.document.write('<div class="v-application--wrap">');
+                        win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
+                        win.document.write('<div class="v-content__wrap">');
+                        win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                        win.document.write(document.getElementById('print-area').innerHTML);
+                        win.document.write('</div>');
+                        win.document.write('</div>');
+                        win.document.write('</main>');
+                        win.document.write('</div>');
+                        win.document.write('</div>');
+                        win.document.write('</body>');
+                        win.document.write('</html>');
+
+                    let css = win.document.createElement('link');
+                        css.type = 'text/css';
+                        css.rel = 'stylesheet';
+                        css.href = '/styles/monoland.css?version=1'; 
+                        css.media = 'all';
+                        win.document.getElementsByTagName("head")[0].appendChild(css);
+                    
+                    setTimeout(() => {
+                        win.document.close();
+                        win.focus();
+                    }, 500);
+                }, 500);
+
+                
+            } else {
+                let win = window.open('', 'PRINT', 'height=600,width=1024');
+                    win.document.write('<html>');
+                    win.document.write('<head>');
+                    win.document.write('<title>Print Preview</title>');
+                    win.document.write('</head>');
+                    win.document.write('<body>');
+                    win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
+                    win.document.write('<div class="v-application--wrap">');
+                    win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
+                    win.document.write('<div class="v-content__wrap">');
+                    win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                    win.document.write(document.getElementById('print-area').innerHTML);
+                    win.document.write('</div>');
+                    win.document.write('</div>');
+                    win.document.write('</main>');
+                    win.document.write('</div>');
+                    win.document.write('</div>');
+                    win.document.write('</body>');
+                    win.document.write('</html>');
+
+                let css = win.document.createElement('link');
+                    css.type = 'text/css';
+                    css.rel = 'stylesheet';
+                    css.href = '/styles/monoland.css?version=1'; 
+                    css.media = 'all';
+                    win.document.getElementsByTagName("head")[0].appendChild(css);
+                
+                setTimeout(() => {
+                    win.document.close();
+                    win.focus();
+                }, 500);
+            }
+
             
-            setTimeout(() => {
-                win.document.close();
-                win.focus();
-                win.print();
-                win.close();
-            }, 500);
         }
     }
 };

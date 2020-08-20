@@ -133,6 +133,11 @@ class Teacher extends Model
             ->withPivot('mandatory');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
     /**
      * Scope for combo
      */

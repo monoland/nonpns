@@ -70,3 +70,40 @@
         
 .v-data-table tfoot td
     border-top: 1px solid rgba(0, 0, 0, 0.36)
+
+.print-area
+    .v-data-table th
+        font-size: 8px
+    
+    .v-data-table td
+        font-size: 8px
+    
+    .v-data-table tr.thead-title th
+        height: 16px
+        text-align: center
+
+    .v-data-table--dense thead tr:last-child th
+        height: 16px
+
+    .theme--light.v-data-table 
+        thead tr.field th
+            border-left: 1px solid rgba(0, 0, 0, 0.6)
+            border-top: 1px solid rgba(0, 0, 0, 0.6)
+            border-bottom: 1px solid rgba(0, 0, 0, 0.6)
+
+        thead tr.field th:last-child
+            border-right: 1px solid rgba(0, 0, 0, 0.6)
+
+        thead tr:last-child th
+            border-left: 1px solid rgba(0, 0, 0, 0.6)
+            border-bottom: 1px solid rgba(0, 0, 0, 0.6)
+
+        thead tr:last-child th:last-child
+            border-right: 1px solid rgba(0, 0, 0, 0.6)
+        
+        tbody tr td:not(.v-data-table__mobile-row)
+            border-left: 1px solid rgba(0, 0, 0, 0.6)
+            border-bottom: 1px solid rgba(0, 0, 0, 0.6)
+
+        tbody tr td:not(.v-data-table__mobile-row):last-child
+            border-right: 1px solid rgba(0, 0, 0, 0.6)
