@@ -17,7 +17,12 @@ class BranchTeacherController extends Controller
     public function index(Branch $branch)
     {
         return new PrintTeacherCollection(
-            $branch->teachers()->with(['education', 'subjects', 'school', 'city'])->where('verified', true)->get()
+            $branch->teachers()
+                ->with(['education', 'subjects', 'school', 'city'])
+                ->where('verified', true)
+                ->orderBy('school_id')
+                ->orderBy('name')
+                ->get()
         );
     }
 }
