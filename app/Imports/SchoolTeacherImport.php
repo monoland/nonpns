@@ -19,8 +19,6 @@ class SchoolTeacherImport implements ToCollection, WithHeadingRow
                 'school_id' => intval($row['school_id']),
                 'teacher_id' => intval($row['teacher_id']),
             ]);
-
-            dd($row);
         }
     }
 }
