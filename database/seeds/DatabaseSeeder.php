@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(SchoolTeacherSeeder::class);
+        $this->call(FixSchoolBranchSeeder::class);
 
         // $this->call(AuthentsTableSeeder::class);
         // $this->call(SettingsTableSeeder::class);

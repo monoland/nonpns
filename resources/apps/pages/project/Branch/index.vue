@@ -156,9 +156,9 @@
                             <td>{{ item.gender }}</td>
                             <td>{{ item.born }}</td>
                             <td>{{ item.nik }}</td>
-                            <td>{{ item.status }}</td>
-                            <td>{{ item.education }}</td>
-                            <td>{{ item.subject }}</td>
+                            <td style="width: 100px;">{{ item.status }}</td>
+                            <td style="width: 50px;">{{ item.education }}</td>
+                            <td style="width: 100px;">{{ item.subject }}</td>
                             <td>{{ item.school }}</td>
                             <td>{{ item.register }}</td>
                             <td>{{ item.city }}</td>
