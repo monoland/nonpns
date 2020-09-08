@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RequirementReport;
 use App\Http\Resources\SubjectCollection;
+use App\Models\Branch;
+use App\Models\Requirement;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
@@ -17,7 +21,7 @@ class SubjectController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Subject::class);
-        
+
         return new SubjectCollection(
             Subject::filterOn($request)->paginate($request->itemsPerPage)
         );
@@ -103,5 +107,26 @@ class SubjectController extends Controller
     public function combo(Request $request)
     {
         return Subject::fetchCombo($request);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reports(Request $request)
+    {
+        $schools = Branch::find(5)->schools()->select('id')->get();
+
+        return RequirementReport::collection(
+            Requirement::select(
+                'subject_id',
+                DB::raw('SUM(require) as require'),
+                DB::raw('SUM(available) as available'),
+                DB::raw('SUM(honorer) as honorer'),
+                DB::raw('SUM(balance) as balance'),
+            )->groupBy('subject_id')->whereIn('school_id', $schools->pluck('id'))->get()
+        );
     }
 }

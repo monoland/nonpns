@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::middleware('throttle:200,1')->group(function () {
     Route::get('company', 'Mono\WebController@company');
 });
@@ -27,6 +29,7 @@ Route::middleware(['api', 'auth:api'])->group(function () {
     // application
     Route::resource('city', 'Apps\CityController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('education', 'Apps\EducationController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('subject/reports', 'Apps\SubjectController@reports');
     Route::resource('subject', 'Apps\SubjectController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('branch', 'Apps\BranchController')->only(['index', 'store', 'update', 'destroy']);
     Route::post('school/{school}/reset', 'Apps\SchoolController@resetPassword');

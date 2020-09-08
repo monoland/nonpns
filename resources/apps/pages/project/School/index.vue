@@ -116,11 +116,11 @@
                             <th><h3>{{ record.name }}</h3></th>
                         </tr>
                         <tr>
-                            <th>Status</th>
                             <th>Mata Pelajaran</th>
                             <th>Kebutuhan</th>
                             <th>Tersedia ASN</th>
                             <th>Non ASN</th>
+                            <th>Formasi</th>
                         </tr>
                     </thead>
 
@@ -261,8 +261,8 @@ export default {
             setTimeout(() => {
                 win.document.close();
                 win.focus();
-                win.print();
-                win.close();
+                // win.print();
+                // win.close();
             }, 500);
         }
     }

@@ -1,5 +1,14 @@
 <template>
-    <v-page-wrap crud absolute searchable with-progress>
+    <v-page-wrap 
+        crud absolute 
+        searchable 
+        with-progress 
+        enable-print
+    >
+        <template #print-button>
+            <v-btn-tips @click="printReport" label="PRINT" icon="print" :show="!disabled.refresh" />
+        </template>
+
         <v-desktop-table v-if="desktop"
             single
         ></v-desktop-table>
@@ -24,6 +33,32 @@
                 </v-col>
             </v-row>
         </v-page-form>
+
+        <v-row id="print-area" style="display: none;">
+            <v-simple-table dense>
+                <template v-slot:default>
+                    <thead>
+                        <tr>
+                            <th>Mata Pelajaran</th>
+                            <th>Kebutuhan</th>
+                            <th>Tersedia ASN</th>
+                            <th>Non ASN</th>
+                            <th>Formasi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="(item, index) in reports" :key="index">
+                            <td>{{ item.subject }}</td>
+                            <td v-html="item.require"></td>
+                            <td v-html="item.available"></td>
+                            <td v-html="item.honorer"></td>
+                            <td v-html="item.balance"></td>
+                        </tr>
+                    </tbody>
+                </template>
+            </v-simple-table>
+        </v-row>
     </v-page-wrap>
 </template>
 
@@ -40,7 +75,7 @@ export default {
     ],
 
     data:() => ({
-        // 
+        reports: []
     }),
 
     created() {
@@ -60,6 +95,49 @@ export default {
             id: null,
             name: null,
         });
+
+        this.getReports();
+    },
+
+    methods: {
+        getReports: async function() {
+            let { data } = await this.http.get(`/api/subject/reports`);
+            this.reports = data;
+        },
+
+        printReport: async function() {
+            let win = window.open('', 'PRINT', 'height=600,width=1024');
+                win.document.write('<html>');
+                win.document.write('<head>');
+                win.document.write('<title>Print Preview</title>');
+                win.document.write('</head>');
+                win.document.write('<body>');
+                win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
+                win.document.write('<div class="v-application--wrap">');
+                win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
+                win.document.write('<div class="v-content__wrap">');
+                win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                win.document.write(document.getElementById('print-area').innerHTML);
+                win.document.write('</div>');
+                win.document.write('</div>');
+                win.document.write('</main>');
+                win.document.write('</div>');
+                win.document.write('</div>');
+                win.document.write('</body>');
+                win.document.write('</html>');
+
+            let css = win.document.createElement('link');
+                css.type = 'text/css';
+                css.rel = 'stylesheet';
+                css.href = '/styles/monoland.css?version=1'; 
+                css.media = 'all';
+                win.document.getElementsByTagName("head")[0].appendChild(css);
+            
+            setTimeout(() => {
+                win.document.close();
+                win.focus();
+            }, 500);
+        }
     }
 };
 </script>
