@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchCollection;
+use App\Http\Resources\BranchReports;
 use App\Models\Branch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -18,26 +19,27 @@ class BranchController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Branch::class);
-        
+
         return new BranchCollection(
             Branch::withCount([
-            'schools', 
-            'schools as sma_count' => function (Builder $query) {
-                $query->where('type', 'sma');
-            },
-            'schools as smk_count' => function (Builder $query) {
-                $query->where('type', 'smk');
-            },
-            'schools as skh_count' => function (Builder $query) {
-                $query->where('type', 'skh');
-            },
-            'teachers', 
-            'teachers as updates_count' => function (Builder $query) {
-                $query->where('updated', true);
-            }, 
-            'teachers as verifies_count' => function (Builder $query) {
-                $query->where('verified', true);
-            }])->filterOn($request)->paginate($request->itemsPerPage)
+                'schools',
+                'schools as sma_count' => function (Builder $query) {
+                    $query->where('type', 'sma');
+                },
+                'schools as smk_count' => function (Builder $query) {
+                    $query->where('type', 'smk');
+                },
+                'schools as skh_count' => function (Builder $query) {
+                    $query->where('type', 'skh');
+                },
+                'teachers',
+                'teachers as updates_count' => function (Builder $query) {
+                    $query->where('updated', true);
+                },
+                'teachers as verifies_count' => function (Builder $query) {
+                    $query->where('verified', true);
+                }
+            ])->filterOn($request)->paginate($request->itemsPerPage)
         );
     }
 
@@ -121,5 +123,16 @@ class BranchController extends Controller
     public function combo(Request $request)
     {
         return Branch::fetchCombo($request);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param Branch $branch
+     */
+    public function reports(Request $request, Branch $branch)
+    {
+        return BranchReports::collection($branch->schools);
     }
 }

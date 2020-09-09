@@ -31,6 +31,7 @@ Route::middleware(['api', 'auth:api'])->group(function () {
     Route::resource('education', 'Apps\EducationController')->only(['index', 'store', 'update', 'destroy']);
     Route::get('subject/reports', 'Apps\SubjectController@reports');
     Route::resource('subject', 'Apps\SubjectController')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('branch/{branch}/reports', 'Apps\BranchController@reports');
     Route::resource('branch', 'Apps\BranchController')->only(['index', 'store', 'update', 'destroy']);
     Route::post('school/{school}/reset', 'Apps\SchoolController@resetPassword');
     Route::resource('branch.school', 'Apps\SchoolController')->only(['index', 'store', 'update', 'destroy']);
