@@ -21,12 +21,12 @@ class PrintTeacherResource extends JsonResource
             'name' => trim($front . $this->name . $back),
             'gender' => $this->gender,
             'born' => $this->born_place . ', ' . date('d F Y', strtotime($this->born_date)),
-            'nik' => (string) $this->nik,
+            'nik' => "'" . $this->nik,
             'status' => $this->status . ' Tidak Tetap',
             'education' => optional($this->education)->name ?: '-',
             'subject' => $this->subjects->pluck('name')->first() ?: '-',
             'school' => $this->school->name,
-            'register' => (string) $this->register ?: '-',
+            'register' => $this->register ? "'" . $this->register : '-',
             'city' => $this->city->name
         ];
     }
