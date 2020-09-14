@@ -93,18 +93,12 @@ class Requirement extends Model
         $sortaz = $request->sortDesc === 'true' ? 'desc' : 'asc';
         $sortby = $request->has('sortBy') ? $request->sortBy : null;
         $search = $request->has('search') ? strtolower($request->search) : null;
-        // $filton = $request->has('filterOn') ? $request->filterOn : null;
-        // $filtby = $request->has('filterBy') ? $request->filterBy : null;
 
         $mixquery = $query;
 
         if ($search) {
             $mixquery = $mixquery->whereRaw("LOWER(name) LIKE '%{$search}%'");
         }
-
-        // if ($filtby) {
-        //     $mixquery = $mixquery->whereRaw("{$filton} = '{$filtby}'");
-        // }
 
         if ($sortby) {
             $mixquery = $mixquery->orderBy($sortby, $sortaz);
