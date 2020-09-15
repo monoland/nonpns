@@ -21,7 +21,7 @@ class TeacherController extends Controller
         $this->authorize('viewAny', Teacher::class);
 
         return new TeacherCollection(
-            $school->teachers()->filterOn($request)
+            $school->teachers()->filterOn($request)->paginate(1000)
         );
     }
 
