@@ -1,0 +1,28 @@
+.pagesplit {
+    display: block;
+    position: relative;
+    page-break-after: always;
+    page-break-inside: avoid;
+}
+
+.pagesplit table tr td {
+    vertical-align: baseline;
+    min-height: 18px;
+    padding: 0px;
+}
+
+.pagesplit table.sk-ttd tr td {
+    text-align: center;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.sk-tagline {
+    width: 128px;
+}
+
+.sk-delimiter {
+    width: 12px;
+}

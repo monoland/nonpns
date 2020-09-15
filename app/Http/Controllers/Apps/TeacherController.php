@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TeacherCollection;
-use App\Http\Resources\TeacherResource;
 use App\Models\School;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -22,7 +21,7 @@ class TeacherController extends Controller
         $this->authorize('viewAny', Teacher::class);
 
         return new TeacherCollection(
-            $school->teachers()->filterOn($request)->paginate($request->itemsPerPage)
+            $school->teachers()->filterOn($request)
         );
     }
 
@@ -98,7 +97,7 @@ class TeacherController extends Controller
     public function bulkdelete(Request $request)
     {
         $this->authorize('bulkDelete', Teacher::class);
-        
+
         return Teacher::bulkDelete($request);
     }
 

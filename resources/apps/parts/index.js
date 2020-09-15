@@ -16,5 +16,6 @@ export { default as PageForm } from './PageForm';
 export { default as PageHeader } from './PageHeader';
 export { default as PageTrash } from './PageTrash';
 export { default as PageWrap } from './PageWrap';
+export { default as QRCode } from './QRCode';
 export { default as TextDate } from './TextDate';
 export { default as Widget } from './Widget';

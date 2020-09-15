@@ -14,12 +14,16 @@ class TeacherResource extends JsonResource
      */
     public function toArray($request)
     {
+        $front = $this->front_title ? $this->front_title . ' ' : '';
+        $back = $this->back_title ? ', ' . $this->back_title . ' ' : '';
+
         return [
             'id' => $this->id,
             'nik' => $this->nik,
-            'front_title' => $this->front_title,
+            'front_title' => $front,
             'name' => $this->name,
-            'back_title' => $this->back_title,
+            'fullname' => trim($front . $this->name . $back),
+            'back_title' => $back,
             'gender' => [
                 'value' => $this->gender,
                 'text' => $this->gender === 'L' ? 'Laki-laki' : 'Perempuan'
@@ -36,10 +40,12 @@ class TeacherResource extends JsonResource
                 'value' => $this->merried,
                 'text' => $this->merried,
             ],
+            'education_text' => optional($this->education)->name,
             'education' => [
                 'value' => optional($this->education)->id,
                 'text' => optional($this->education)->name,
             ],
+            'school_text' => optional($this->school)->name,
             'school' => [
                 'value' => optional($this->school)->id,
                 'text' => optional($this->school)->name,
@@ -49,6 +55,7 @@ class TeacherResource extends JsonResource
                 'text' => optional($this->branch)->name,
             ],
             'verify' => $this->verify,
+            'subject' => $this->subjects->pluck('name')->first() ?: '-',
             'subjects' => SubjectList::collection($this->subjects),
             'documents' => DocumentResource::collection($this->documents),
             'register' => $this->register,

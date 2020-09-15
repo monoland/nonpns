@@ -327,6 +327,37 @@ export default {
             }, 500);
         },
 
+        printQrCode: async function() {
+            if (this.teachers.length <= 0) {
+                let { data: { data } } = await this.http.get(`/api/branch/${this.table.selected[0].id}/teacher`);
+                this.teachers = data;
+            }
+            
+            let win = window.open('', 'PRINT', 'height=600,width=1024');
+                win.document.write('<html>');
+                win.document.write('<head>');
+                win.document.write('<title>Print Preview</title>');
+                win.document.write('</head>');
+                win.document.write('<body>');
+                win.document.write('<div class="print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                win.document.write(document.getElementById('print-qrcode').innerHTML);
+                win.document.write('</div>');
+                win.document.write('</body>');
+                win.document.write('</html>');
+
+            let prt = win.document.createElement('link');
+                prt.type = 'text/css';
+                prt.rel = 'stylesheet';
+                prt.href = '/styles/print.css?version=1'; 
+                prt.media = 'print';
+                win.document.getElementsByTagName("head")[0].appendChild(prt);
+            
+            setTimeout(() => {
+                win.document.close();
+                win.focus();
+            }, 500);
+        },
+
         printReport: async function() {
             if (this.table.selected.length > 0) {
                 let { data: { additional: { info }, data } } = await this.http.get(`/api/branch/${this.table.selected[0].id}/teacher`);

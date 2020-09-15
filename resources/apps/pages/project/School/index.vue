@@ -15,6 +15,7 @@
         </template>
 
         <template #toolbar-default>
+            <v-btn-tips @click="printQrCode" label="QR-CODE" icon="print" :show="!disabled.link"></v-btn-tips>
             <v-btn-tips @click="postReset" label="RESET-USER" icon="history" :show="!disabled.link" />
             <v-btn-tips @click="openLink" label="PENDIDIK" icon="perm_identity" :show="!disabled.link" />
         </template>
@@ -59,6 +60,245 @@
                 </v-col>
             </v-row>
         </v-page-form>
+
+        <v-row id="print-qrcode" style="display: none;">
+            <template v-for="(item, index) in teachers">
+                <div class="pagesplit" :key="index">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="align-center"><strong>PETIKAN</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="align-center"><strong>KEPUTUSAN GUBERNUR BANTEN</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="align-center"><strong>NOMOR: 896/Kep.         - BKD/2020</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="align-center"><strong>TENTANG</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="align-center">PENUGASAN GURU BUKAN PEGAWAI NEGERI SIPIL PADA SEKOLAH MENENGAH ATAS</td>
+                            </tr>
+                            <tr>
+                                <td class="align-center">NEGERI, SEKOLAH MENENGAH KEJURUAN NEGERI DAN SEKOLAH KHUSUS</td>
+                            </tr>
+                            <tr>
+                                <td class="align-center">DI LINGKUNGAN PEMERINTAH PROVINSI BANTEN</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="align-center"><strong>GUBERNUR BANTEN</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="sk-tagline">Menimbang</td>
+                                                <td class="sk-delimiter">:</td>
+                                                <td>dst;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="sk-tagline">Mengingat</td>
+                                                <td class="sk-delimiter">:</td>
+                                                <td>dst;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="sk-tagline">Memperhatikan</td>
+                                                <td class="sk-delimiter">:</td>
+                                                <td>Peraturan Pemerintah Republik Indonesia Nomor 41 tahun 2019 tentang Tunjangan Profesi Guru dan Dosen, Tunjangan Khusus Guru dan Dosen, Serta Tunjangan Kehormatan Profesor;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="align-center"><strong>MEMUTUSKAN</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="sk-tagline">Menetapkan</td>
+                                                <td class="sk-delimiter">:</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="sk-tagline">KESATU</td>
+                                                <td class="sk-delimiter">:</td>
+                                                <td>Menugaskan Guru Bukan Pegawai Negeri Sipil:</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <v-simple-table dense>
+                                                        <template v-slot:default>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Nomor Urut</td>
+                                                                    <td class="sk-delimiter">:</td>
+                                                                    <td>1</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>Nama</td>
+                                                                    <td class="sk-delimiter">:</td>
+                                                                    <td>{{ item.fullname }}</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>Mata Pelajaran</td>
+                                                                    <td class="sk-delimiter">:</td>
+                                                                    <td>{{ item.subject }}</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>Satuan Pendidikan</td>
+                                                                    <td class="sk-delimiter">:</td>
+                                                                    <td><strong>{{ item.school_text }}</strong></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </template>
+                                                    </v-simple-table>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="sk-tagline">KEDUA</td>
+                                                <td class="sk-delimiter">:</td>
+                                                <td>Guru bukan Pegawai Negeri Sipil yang dimaksud pada Diktum KESATU dapat mengikuti Progran Sertifikasi Guru dari Kementerian Pendidikan dan Kebudayaan Republik Indonesia dan dapat diterbitkan Surat Keputusan Tunjangan Profesi (SKTP) serta tidak akan menuntut untuk diangkat menjadi Pegawai Negeri Sipil.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="sk-tagline">KETIGA</td>
+                                                <td class="sk-delimiter">:</td>
+                                                <td><strong>PETIKAN</strong> Keputusan Gubernur ini disampaikan kepada yang bersangkutan dan yang berkepentingan untuk dapat diketahui dan dipergunakan sebagaimana mestinya.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <table class="sk-ttd" style="width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>Ditetapkan di    S e r a n g</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>Pada tanggal   1 September 2020</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Untuk PETIKAN yang sah</td>
+                                                <td>GUBERNUR BANTEN,</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Kepala Badan Kepegawaian Daerah,</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>ttd</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><strong><u>Dr. KOMARUDIN, MAP</u></strong></td>
+                                                <td><strong>WAHIDIN HALIM</strong></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Pembina Utama Muda</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>NIP. 197007211991011002</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td>Kepada :</td>
+                            </tr>
+
+                            <tr>
+                                <td>Yth. Sdr/i. Rahmat Muhari, S.Pd.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+        </v-row>
 
         <v-row id="print-area" style="display: none;">
             <v-simple-table dense v-if="table.selected.length <= 0">
@@ -184,7 +424,7 @@ export default {
     },
 
     data:() => ({
-        // 
+        teachers: []
     }),
 
     created() {
@@ -228,6 +468,37 @@ export default {
             } catch (error) {
                 this.$store.dispatch('errors', error);
             }
+        },
+
+        printQrCode: async function() {
+            if (this.teachers.length <= 0) {
+                let { data: { data } } = await this.http.get(`/api/school/${this.table.selected[0].id}/teacher`);
+                this.teachers = data;
+            }
+            
+            let win = window.open('', 'PRINT', 'height=600,width=1024');
+                win.document.write('<html>');
+                win.document.write('<head>');
+                win.document.write('<title>Print Preview</title>');
+                win.document.write('</head>');
+                win.document.write('<body>');
+                win.document.write('<div class="print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                win.document.write(document.getElementById('print-qrcode').innerHTML);
+                win.document.write('</div>');
+                win.document.write('</body>');
+                win.document.write('</html>');
+
+            let prt = win.document.createElement('link');
+                prt.type = 'text/css';
+                prt.rel = 'stylesheet';
+                prt.href = '/styles/print.css?version=1'; 
+                prt.media = 'print';
+                win.document.getElementsByTagName("head")[0].appendChild(prt);
+            
+            setTimeout(() => {
+                win.document.close();
+                win.focus();
+            }, 500);
         },
 
         printReport: async function() {
