@@ -122,7 +122,7 @@
                                             <tr>
                                                 <td class="sk-tagline">Memperhatikan</td>
                                                 <td class="sk-delimiter">:</td>
-                                                <td>Peraturan Pemerintah Republik Indonesia Nomor 41 tahun 2019 tentang Tunjangan Profesi Guru dan Dosen, Tunjangan Khusus Guru dan Dosen, Serta Tunjangan Kehormatan Profesor;</td>
+                                                <td class="text-justify">Peraturan Pemerintah Republik Indonesia Nomor 41 tahun 2019 tentang Tunjangan Profesi Guru dan Dosen, Tunjangan Khusus Guru dan Dosen, Serta Tunjangan Kehormatan Profesor;</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -192,7 +192,7 @@
                                             <tr>
                                                 <td class="sk-tagline">KEDUA</td>
                                                 <td class="sk-delimiter">:</td>
-                                                <td>Guru bukan Pegawai Negeri Sipil yang dimaksud pada Diktum KESATU dapat mengikuti Progran Sertifikasi Guru dari Kementerian Pendidikan dan Kebudayaan Republik Indonesia dan dapat diterbitkan Surat Keputusan Tunjangan Profesi (SKTP) serta tidak akan menuntut untuk diangkat menjadi Pegawai Negeri Sipil.</td>
+                                                <td class="text-justify">Guru bukan Pegawai Negeri Sipil yang dimaksud pada Diktum KESATU dapat mengikuti Progran Sertifikasi Guru dari Kementerian Pendidikan dan Kebudayaan Republik Indonesia dan dapat diterbitkan Surat Keputusan Tunjangan Profesi (SKTP) serta tidak akan menuntut untuk diangkat menjadi Pegawai Negeri Sipil.</td>
                                             </tr>
                                             <tr>
                                                 <td>&nbsp;</td>
@@ -200,7 +200,7 @@
                                             <tr>
                                                 <td class="sk-tagline">KETIGA</td>
                                                 <td class="sk-delimiter">:</td>
-                                                <td><strong>PETIKAN</strong> Keputusan Gubernur ini disampaikan kepada yang bersangkutan dan yang berkepentingan untuk dapat diketahui dan dipergunakan sebagaimana mestinya.</td>
+                                                <td class="text-justify"><strong>PETIKAN</strong> Keputusan Gubernur ini disampaikan kepada yang bersangkutan dan yang berkepentingan untuk dapat diketahui dan dipergunakan sebagaimana mestinya.</td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -3,6 +3,7 @@
     position: relative;
     page-break-after: always;
     page-break-inside: avoid;
+    margin-top: 40mm;
 }
 
 .pagesplit table tr td {
@@ -31,4 +32,8 @@
 
 .sk-delimiter {
     width: 12px;
+}
+
+.text-justify {
+    text-align: justify;
 }
