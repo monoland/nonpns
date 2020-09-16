@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\SettingResource;
+use App\Http\Resources\VerifyResource;
+use App\Models\Nominative;
+use Illuminate\Support\Facades\Cache;
 
 class WebController extends Controller
 {
@@ -19,6 +22,39 @@ class WebController extends Controller
     {
         TeacherHasUpdated::dispatch();
         return view('default');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $code
+     */
+    public function redirect($code)
+    {
+        $nominative = Cache::rememberForever("shorten.$code", function () use ($code) {
+            return Nominative::with(['teacher', 'school'])->where('shorturl', $code)->first();
+        });
+
+        if ($nominative !== null) {
+            return redirect()->away("http://nonpns.netx/#/verify/$code");
+        }
+
+        abort(404);
+    }
+
+    public function verify($code)
+    {
+        $nominative = Cache::rememberForever("shorten.$code", function () use ($code) {
+            return Nominative::with(['teacher', 'school'])->where('shorturl', $code)->first();
+        });
+
+        if ($nominative) {
+            return new VerifyResource($nominative);
+        }
+
+        return response()->json([
+            'success' => false
+        ], 404);
     }
 
     /**

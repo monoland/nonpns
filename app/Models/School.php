@@ -106,6 +106,11 @@ class School extends Model
         return $this->hasMany(Requirement::class);
     }
 
+    public function nominatives()
+    {
+        return $this->hasMany(Nominative::class);
+    }
+
     /**
      * Undocumented function
      *

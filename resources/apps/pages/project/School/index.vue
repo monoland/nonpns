@@ -73,7 +73,7 @@
                                 <td class="align-center"><strong>KEPUTUSAN GUBERNUR BANTEN</strong></td>
                             </tr>
                             <tr>
-                                <td class="align-center"><strong>NOMOR: 896/Kep.         - BKD/2020</strong></td>
+                                <td class="align-center"><strong>NOMOR: {{ item.number }}</strong></td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
@@ -110,13 +110,13 @@
                                             <tr>
                                                 <td class="sk-tagline">Menimbang</td>
                                                 <td class="sk-delimiter">:</td>
-                                                <td>dst;</td>
+                                                <td><span style="display: inline-block; width: 96px;"></span> dst;</td>
                                             </tr>
 
                                             <tr>
                                                 <td class="sk-tagline">Mengingat</td>
                                                 <td class="sk-delimiter">:</td>
-                                                <td>dst;</td>
+                                                <td><span style="display: inline-block; width: 96px;"></span> dst;</td>
                                             </tr>
 
                                             <tr>
@@ -163,7 +163,7 @@
                                                                 <tr>
                                                                     <td>Nomor Urut</td>
                                                                     <td class="sk-delimiter">:</td>
-                                                                    <td>1</td>
+                                                                    <td>{{ item.serial }}</td>
                                                                 </tr>
 
                                                                 <tr>
@@ -181,7 +181,7 @@
                                                                 <tr>
                                                                     <td>Satuan Pendidikan</td>
                                                                     <td class="sk-delimiter">:</td>
-                                                                    <td><strong>{{ item.school_text }}</strong></td>
+                                                                    <td><strong>{{ item.school }}</strong></td>
                                                                 </tr>
                                                             </tbody>
                                                         </template>
@@ -217,61 +217,69 @@
                                         <tbody>
                                             <tr>
                                                 <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
                                                 <td>Ditetapkan di    S e r a n g</td>
                                             </tr>
 
                                             <tr>
                                                 <td>&nbsp;</td>
-                                                <td>Pada tanggal   1 September 2020</td>
+                                                <td>&nbsp;</td>
+                                                <td>Pada tanggal {{ item.tmt }}</td>
                                             </tr>
 
                                             <tr>
+                                                <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                             </tr>
 
                                             <tr>
                                                 <td>Untuk PETIKAN yang sah</td>
+                                                <td>&nbsp;</td>
                                                 <td>GUBERNUR BANTEN,</td>
                                             </tr>
 
                                             <tr>
                                                 <td>Kepala Badan Kepegawaian Daerah,</td>
                                                 <td>&nbsp;</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                             </tr>
 
                                             <tr>
                                                 <td>&nbsp;</td>
-                                                <td>ttd</td>
-                                            </tr>
-
-                                            <tr>
                                                 <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                             </tr>
 
                                             <tr>
+                                                <td style="vertical-align: middle;">ttd</td>
+                                                <td style="vertical-align: middle;">
+                                                    <v-qrcode :text="`${item.shorturl}`"></v-qrcode>
+                                                </td>
+                                                <td style="vertical-align: middle;">ttd</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                             </tr>
 
                                             <tr>
                                                 <td><strong><u>Dr. KOMARUDIN, MAP</u></strong></td>
+                                                <td>&nbsp;</td>
                                                 <td><strong>WAHIDIN HALIM</strong></td>
                                             </tr>
 
                                             <tr>
                                                 <td>Pembina Utama Muda</td>
                                                 <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
                                             </tr>
 
                                             <tr>
                                                 <td>NIP. 197007211991011002</td>
+                                                <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                             </tr>
                                         </tbody>
@@ -292,7 +300,7 @@
                             </tr>
 
                             <tr>
-                                <td>Yth. Sdr/i. Rahmat Muhari, S.Pd.</td>
+                                <td>Yth. Sdr/i. {{ item.fullname }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -471,34 +479,34 @@ export default {
         },
 
         printQrCode: async function() {
-            if (this.teachers.length <= 0) {
-                let { data: { data } } = await this.http.get(`/api/school/${this.table.selected[0].id}/teacher`);
-                this.teachers = data;
-            }
-            
-            let win = window.open('', 'PRINT', 'height=600,width=1024');
-                win.document.write('<html>');
-                win.document.write('<head>');
-                win.document.write('<title>Print Preview</title>');
-                win.document.write('</head>');
-                win.document.write('<body>');
-                win.document.write('<div class="print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
-                win.document.write(document.getElementById('print-qrcode').innerHTML);
-                win.document.write('</div>');
-                win.document.write('</body>');
-                win.document.write('</html>');
+            let { data } = await this.http.get(`/api/school/${this.table.selected[0].id}/nominative`);
+            this.teachers = data;
 
-            let prt = win.document.createElement('link');
-                prt.type = 'text/css';
-                prt.rel = 'stylesheet';
-                prt.href = '/styles/print.css?version=1'; 
-                prt.media = 'print';
-                win.document.getElementsByTagName("head")[0].appendChild(prt);
-            
             setTimeout(() => {
+            
+                let win = window.open('', 'PRINT', 'height=600,width=1024');
+                    win.document.write('<html>');
+                    win.document.write('<head>');
+                    win.document.write('<title>Print Preview</title>');
+                    win.document.write('</head>');
+                    win.document.write('<body>');
+                    win.document.write('<div class="print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                    win.document.write(document.getElementById('print-qrcode').innerHTML);
+                    win.document.write('</div>');
+                    win.document.write('</body>');
+                    win.document.write('</html>');
+
+                let prt = win.document.createElement('link');
+                    prt.type = 'text/css';
+                    prt.rel = 'stylesheet';
+                    prt.href = '/styles/print.css?version=1'; 
+                    prt.media = 'print';
+                    win.document.getElementsByTagName("head")[0].appendChild(prt);
+            
+            
                 win.document.close();
                 win.focus();
-            }, 500);
+            }, 1500);
         },
 
         printReport: async function() {

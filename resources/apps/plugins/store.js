@@ -57,7 +57,9 @@ export default new Vuex.Store({
             total: 0, params: { itemsPerPage: 10, page: 1, sortBy: null, sortDesc: null}, 
             selected: [] 
         },
-        upload: { combined: false, progress: false, value: 0, name: null }
+        upload: { combined: false, progress: false, value: 0, name: null },
+        verifyload: true,
+        verifydata: {}
     },
 
     getters: {
@@ -380,6 +382,12 @@ export default new Vuex.Store({
 
         tableHeaders: function(state, payload) {
             state.headers = payload;
+        },
+
+        verifycommit: function(state, payload)
+        {
+            state.verifydata = payload;
+            state.verifyload = false;
         },
 
         upload: function(state, payload) {
@@ -878,6 +886,17 @@ export default new Vuex.Store({
 
         trashFormOpen: function({ commit }) {
             commit('trash', { state: true });
+        },
+
+        verifypost: async function({ commit, state }, payload)
+        {
+            try {
+                let { data } = await state.http.post(`/verify/${payload}`);
+
+                commit('verifycommit', data);
+            } catch (error) {
+                commit('verifycommit', 404);
+            }
         },
 
         errors: function({ commit, state }, payload) {

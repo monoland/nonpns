@@ -36,6 +36,7 @@ class TeacherResource extends JsonResource
                 'text' => $this->source
             ],
             'tmt' => $this->tmt,
+            'nominative' => $this->nominative,
             'merried' => [
                 'value' => $this->merried,
                 'text' => $this->merried,

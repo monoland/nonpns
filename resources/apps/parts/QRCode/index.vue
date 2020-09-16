@@ -18,9 +18,9 @@ export default {
 
     mounted() {
         new QRCode(this.$refs.qrcode, {
-            text: `${baseURL}/#/verify/${this.text.replace("'", "")}`,
-            height: 128,
-            width: 128,
+            text: `${baseURL}/${this.text}`,
+            height: 112,
+            width: 112,
             quietZone: 4
         });
     }

@@ -138,6 +138,11 @@ class Teacher extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function nominative()
+    {
+        return $this->hasOne(Nominative::class)->where('nominatives.active', true);
+    }
+
     /**
      * Scope for combo
      */

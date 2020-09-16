@@ -37,6 +37,7 @@ Route::middleware(['api', 'auth:api'])->group(function () {
     Route::resource('branch.school', 'Apps\SchoolController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('branch.teacher', 'Apps\BranchTeacherController')->only(['index']);
     Route::resource('school.teacher', 'Apps\TeacherController')->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('school.nominative', 'Apps\NominativeController')->only(['index']);
     Route::resource('school.user', 'Apps\SchoolUserController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('requirement', 'Apps\RequirementController')->only(['index', 'store', 'show', 'update', 'destroy']);
     Route::resource('teacher', 'Apps\OperatorTeacherController')->only(['index', 'store', 'show', 'update', 'destroy']);

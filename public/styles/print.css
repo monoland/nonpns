@@ -13,6 +13,12 @@
 
 .pagesplit table.sk-ttd tr td {
     text-align: center;
+    min-height: 6px;
+}
+
+.pagesplit table tr td img {
+    height: 72px;
+    width: auto;
 }
 
 .align-center {
