@@ -36,7 +36,7 @@ class WebController extends Controller
         });
 
         if ($nominative !== null) {
-            return redirect()->away("http://nonpns.netx/#/verify/$code");
+            return redirect()->away("https://app-bkd.bantenprov.go.id/sipandik/#/verify/$code");
         }
 
         abort(404);
