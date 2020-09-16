@@ -4,6 +4,8 @@
     page-break-after: always;
     page-break-inside: avoid;
     margin-top: 40mm;
+    margin-left: 10mm;
+    margin-right: 10mm;
 }
 
 .pagesplit table tr td {
