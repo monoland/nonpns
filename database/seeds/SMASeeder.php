@@ -13,6 +13,6 @@ class SMASeeder extends Seeder
      */
     public function run()
     {
-        Excel::import(new SMAImport, storage_path('seeds/sma.xlsx'));
+        Excel::import(new SMAImport, storage_path('seeds/additionals.xlsx'));
     }
 }

@@ -30,6 +30,8 @@ class SMAImport implements ToModel, WithHeadingRow
                 'school_id' => $teacher->school_id,
                 'shorturl' => $this->generate()
             ]);
+        } else {
+            var_dump($row['serial'], $row['name']);
         }
     }
 
