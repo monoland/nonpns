@@ -48,6 +48,6 @@ class NominativeResource extends JsonResource
 
         $tanggal = explode('-', $tmt);
 
-        return $tanggal[0] . '-' . $bulan[$tanggal[1]] . '-' . $tanggal[2];
+        return $tanggal[0] . ' ' . $bulan[$tanggal[1]] . ' ' . $tanggal[2];
     }
 }
