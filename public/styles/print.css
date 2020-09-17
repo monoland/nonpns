@@ -15,6 +15,21 @@
     font-size: 14.5px;
 }
 
+table.with-border {
+    border-collapse: collapse;
+}
+
+table.with-border tr th,
+table.with-border tr td {
+    min-height: 24px;
+}
+
+table.with-border tbody tr td {
+    border: 1px solid;
+    height: 56px;
+    padding: 0px 8px;
+}
+
 .pagesplit table.sk-ttd tr td {
     text-align: center;
     min-height: 6px;

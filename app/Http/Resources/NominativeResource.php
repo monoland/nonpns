@@ -15,7 +15,9 @@ class NominativeResource extends JsonResource
     public function toArray($request)
     {
         $front = optional($this->teacher)->front_title ? optional($this->teacher)->front_title . ' ' : '';
+        $front = str_replace('-', '', $front);
         $back = optional($this->teacher)->back_title ? ', ' . optional($this->teacher)->back_title . ' ' : '';
+        $back = str_replace('-', '', $back);
 
         return [
             'fullname' => trim($front . optional($this->teacher)->name . $back),

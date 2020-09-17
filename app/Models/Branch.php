@@ -80,13 +80,19 @@ class Branch extends Model
         return $this->hasMany(Teacher::class);
     }
 
+    public function nominatives()
+    {
+        return $this->hasManyThrough(Nominative::class, School::class);
+    }
+
     /**
      * Scope for combo
      */
     public function scopeFetchCombo($query)
     {
         return $query->select(
-            'name AS text', 'id AS value'
+            'name AS text',
+            'id AS value'
         )->get();
     }
 

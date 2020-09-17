@@ -9,6 +9,7 @@
         <template #toolbar-default>
             <v-btn-tips @click="openLink" label="SEKOLAH" icon="school" :show="!disabled.link" />
             <v-btn-tips @click="printRequired" label="KEBUTUHAN" icon="print" :show="!disabled.link"></v-btn-tips>
+            <v-btn-tips @click="printReceipt" label="TANDA TERIMA" icon="print" :show="!disabled.link"></v-btn-tips>
         </template>
 
         <template #print-button>
@@ -55,6 +56,45 @@
                 </v-col>
             </v-row>
         </v-page-form>
+
+        <v-row id="print-receipt" style="display: none;">
+            <table class="with-border">
+                <thead>
+                    <tr>
+                        <th colspan="5">TANDA TERIMA</th>
+                    </tr>
+
+                    <tr>
+                        <th colspan="5">PENUGASAN GURU BUKAN PEGAWAI NEGERI SIPIL</th>
+                    </tr>
+
+                    <tr>
+                        <th colspan="5">&nbsp;</th>
+                    </tr>
+
+                    <tr>
+                        <th colspan="5">&nbsp;</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>No</td>
+                        <td>Nama</td>
+                        <td>Mata Pelajaran</td>
+                        <td style="min-width: 150px;">Satuan Pendidikan</td>
+                        <td style="min-width: 128px;">Tanda Tangan</td>
+                    </tr>
+                    <tr v-for="(item, index) in teachers" :key="index">
+                        <td>{{ index + 1}}</td>
+                        <td>{{ item.fullname }}</td>
+                        <td>{{ item.subject }}</td>
+                        <td>{{ item.school }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </v-row>
 
         <v-row id="print-data" style="display: none;">
             <v-simple-table dense>
@@ -291,6 +331,35 @@ export default {
             } else {
                 this.$router.push({ name: 'school', params: { branch: record.id } });
             }
+        },
+
+        printReceipt: async function() {
+            let { data } = await this.http.get(`/api/branch/${this.table.selected[0].id}/receipt`);
+            this.teachers = data;
+
+            setTimeout(() => {
+                let win = window.open('', 'PRINT', 'height=600,width=1024');
+                    win.document.write('<html>');
+                    win.document.write('<head>');
+                    win.document.write('<title>Print Preview</title>');
+                    win.document.write('</head>');
+                    win.document.write('<body>');
+                    win.document.write('<div class="print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+                    win.document.write(document.getElementById('print-receipt').innerHTML);
+                    win.document.write('</div>');
+                    win.document.write('</body>');
+                    win.document.write('</html>');
+
+                let prt = win.document.createElement('link');
+                    prt.type = 'text/css';
+                    prt.rel = 'stylesheet';
+                    prt.href = '/styles/print.css'; 
+                    prt.media = 'all';
+                    win.document.getElementsByTagName("head")[0].appendChild(prt);
+
+                win.document.close();
+                win.focus();
+            }, 1500);
         },
 
         printRequired: function() {
