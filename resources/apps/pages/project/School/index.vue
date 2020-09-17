@@ -252,7 +252,9 @@
                                             </tr>
 
                                             <tr>
-                                                <td style="vertical-align: middle;">ttd</td>
+                                                <td style="vertical-align: middle;">
+                                                    <img src="/images/ttd-kaban.png" alt="ttd" style="max-width: 236px;">
+                                                </td>
                                                 <td style="vertical-align: middle;">
                                                     <v-qrcode :text="`${item.shorturl}`"></v-qrcode>
                                                 </td>
