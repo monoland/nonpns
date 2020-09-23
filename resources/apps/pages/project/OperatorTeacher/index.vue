@@ -1,6 +1,5 @@
 <template>
     <v-page-wrap 
-        :enable-edit="false"
         :enable-add="false"
         :enable-delete="false"
         crud 
