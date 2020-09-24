@@ -219,18 +219,18 @@ class Teacher extends Model
             // $model->gender = $request->gender['value'];
             // $model->born_place = $request->born_place;
             // $model->born_date = $request->born_date;
-            // if (is_array($request->status)) {
-            //     $model->status = $request->status['value'];
-            // } else {
-            //     $model->status = $request->status;
-            // }
+            if (is_array($request->status)) {
+                $model->status = $request->status['value'];
+            } else {
+                $model->status = $request->status;
+            }
             // $model->tmt = $request->tmt;
-            // $model->merried = $request->merried['value'];
+            $model->merried = $request->merried['value'];
             // $model->source = $request->source['value'];
-            // $model->education_id = $request->education['value'];
-            // $model->register = $request->register;
+            $model->education_id = $request->education['value'];
+            $model->register = $request->register;
             // $model->updated = true;
-            // $model->save();
+            $model->save();
 
             // if ($request->documents && count($request->documents)) {
             //     foreach ($request->documents as $document) {
