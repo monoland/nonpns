@@ -158,6 +158,15 @@
                         v-model="record.education"
                     ></v-combobox>
                 </v-col>
+
+                <v-col cols="12">
+                    <v-combobox
+                        label="Unit Kerja"
+                        :items="schools"
+                        :color="$root.theme"
+                        v-model="record.school"
+                    ></v-combobox>
+                </v-col>
             </v-row>
         </v-page-form>
     </v-page-wrap>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\School;
 use App\Models\Subject;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -30,7 +31,8 @@ class TeacherCollection extends ResourceCollection
         return [
             'additional' => [
                 'combos' => [
-                    'subjects' => Subject::fetchCombo()
+                    'subjects' => Subject::fetchCombo(),
+                    'schools' => School::fetchCombo(),
                 ],
             ],
         ];
