@@ -235,7 +235,20 @@ class Teacher extends Model
             $model->register = $request->register;
             $model->updated = true;
 
+            $school = School::find($request->school['value']);
+            if ($school) {
+                $model->school_id = $school->id;
+                $model->branch_id = $school->branch_id;
+                $model->city_id = $school->city_id;
+            }
+
             $model->save();
+
+            if ($school) {
+                DB::table('school_teacher')->where('teacher_id', $model->id)->update([
+                    'school_id' => $school->id
+                ]);
+            }
 
             if ($request->documents && count($request->documents)) {
                 foreach ($request->documents as $document) {

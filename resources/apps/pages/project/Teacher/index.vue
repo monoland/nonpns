@@ -184,6 +184,16 @@ export default {
         { path: 'school/:school/teacher', name: 'teacher', root: 'monoland' },
     ],
 
+    computed: {
+        schools: function() {
+            if (this.combos && this.combos.hasOwnProperty('schools')) {
+                return this.combos.schools;
+            }
+
+            return [];
+        }
+    },
+
     data:() => ({
         educations: [
             { text: 'SD', value: 1 },
