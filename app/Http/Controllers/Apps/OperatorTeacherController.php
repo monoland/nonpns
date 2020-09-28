@@ -18,7 +18,7 @@ class OperatorTeacherController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Teacher::class);
-        
+
         return new TeacherCollection(
             $request->user()->userable->teachers()->filterOn($request)->paginate($request->itemsPerPage)
         );
@@ -74,7 +74,7 @@ class OperatorTeacherController extends Controller
             'documents' => 'required',
         ]);
 
-        return Teacher::updateRecord($request, $teacher);
+        // return Teacher::updateRecord($request, $teacher);
     }
 
     /**
@@ -87,7 +87,7 @@ class OperatorTeacherController extends Controller
     {
         $this->authorize('delete', $teacher);
 
-        return Teacher::destroyRecord($teacher);
+        // return Teacher::destroyRecord($teacher);
     }
 
     /**
@@ -100,7 +100,7 @@ class OperatorTeacherController extends Controller
     {
         $this->authorize('bulkDelete', Teacher::class);
 
-        return Teacher::bulkDelete($request);
+        // return Teacher::bulkDelete($request);
     }
 
     /**

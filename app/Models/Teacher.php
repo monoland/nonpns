@@ -212,31 +212,28 @@ class Teacher extends Model
         DB::beginTransaction();
 
         try {
-
-            if ($request->user()->isVerificator()) {
-                $model->nik = $request->nik;
-                $model->front_title = $request->front_title;
-                $model->name = $request->name;
-                $model->back_title = $request->back_title;
-                $model->gender = $request->gender['value'];
-                $model->born_place = $request->born_place;
-                $model->born_date = $request->born_date;
-                $model->tmt = $request->tmt;
-                $model->source = $request->source['value'];
-                // $model->updated = true;
-            }
-
             if ($request->user()->isOperator()) {
-                if (is_array($request->status)) {
-                    $model->status = $request->status['value'];
-                } else {
-                    $model->status = $request->status;
-                }
-                $model->merried = $request->merried['value'];
-                $model->education_id = $request->education['value'];
-                $model->register = $request->register;
+                return false;
             }
 
+            $model->nik = $request->nik;
+            $model->front_title = $request->front_title;
+            $model->name = $request->name;
+            $model->back_title = $request->back_title;
+            $model->gender = $request->gender['value'];
+            $model->born_place = $request->born_place;
+            $model->born_date = $request->born_date;
+            $model->tmt = $request->tmt;
+            $model->source = $request->source['value'];
+            if (is_array($request->status)) {
+                $model->status = $request->status['value'];
+            } else {
+                $model->status = $request->status;
+            }
+            $model->merried = $request->merried['value'];
+            $model->education_id = $request->education['value'];
+            $model->register = $request->register;
+            $model->updated = true;
 
             $model->save();
 
