@@ -14,7 +14,7 @@ class KCDLebakUpdateSeeder extends Seeder
      */
     public function run()
     {
-        $branch = Branch::find(2);
+        $branch = Branch::find(1);
 
         if ($branch) {
             $schools = $branch->schools;
