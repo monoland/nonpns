@@ -32,7 +32,7 @@ class SchoolController extends Controller
                 'teachers as verifies_count' => function (Builder $query) {
                     $query->where('verified', true);
                 }
-            ])->filterOn($request)->paginate(1000000)
+            ])->filterOn($request)->paginate($request->itemsPerPage)
         );
     }
 
