@@ -214,10 +214,10 @@ export default {
         ],
 
         merrieds: [
-            { text: 'Kawin', value: 'kawin' },
-            { text: 'Blm. Kawin', value: 'blm_kawin' },
-            { text: 'Duda', value: 'duda' },
-            { text: 'Janda', value: 'janda' },
+            { text: 'Kawin', value: 'Kawin' },
+            { text: 'Blm. Kawin', value: 'Blm. Kawin' },
+            { text: 'Duda', value: 'Duda' },
+            { text: 'Janda', value: 'Janda' },
         ],
 
         statuses: [
