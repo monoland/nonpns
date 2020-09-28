@@ -212,56 +212,64 @@ class Teacher extends Model
         DB::beginTransaction();
 
         try {
-            // $model->nik = $request->nik;
-            // $model->front_title = $request->front_title;
-            // $model->name = $request->name;
-            // $model->back_title = $request->back_title;
-            // $model->gender = $request->gender['value'];
-            // $model->born_place = $request->born_place;
-            // $model->born_date = $request->born_date;
-            if (is_array($request->status)) {
-                $model->status = $request->status['value'];
-            } else {
-                $model->status = $request->status;
+
+            if ($request->user()->isVerificator()) {
+                $model->nik = $request->nik;
+                $model->front_title = $request->front_title;
+                $model->name = $request->name;
+                $model->back_title = $request->back_title;
+                $model->gender = $request->gender['value'];
+                $model->born_place = $request->born_place;
+                $model->born_date = $request->born_date;
+                $model->tmt = $request->tmt;
+                $model->source = $request->source['value'];
+                // $model->updated = true;
             }
-            // $model->tmt = $request->tmt;
-            $model->merried = $request->merried['value'];
-            // $model->source = $request->source['value'];
-            $model->education_id = $request->education['value'];
-            $model->register = $request->register;
-            // $model->updated = true;
+
+            if ($request->user()->isOperator()) {
+                if (is_array($request->status)) {
+                    $model->status = $request->status['value'];
+                } else {
+                    $model->status = $request->status;
+                }
+                $model->merried = $request->merried['value'];
+                $model->education_id = $request->education['value'];
+                $model->register = $request->register;
+            }
+
+
             $model->save();
 
-            // if ($request->documents && count($request->documents)) {
-            //     foreach ($request->documents as $document) {
-            //         $xdocument = Document::find($document['id']);
+            if ($request->documents && count($request->documents)) {
+                foreach ($request->documents as $document) {
+                    $xdocument = Document::find($document['id']);
 
-            //         if ($xdocument) {
-            //             $xdocument->kind = $document['kind'];
-            //             $xdocument->kind_numb = $document['kind_numb'];
-            //             $xdocument->kind_date = $document['kind_date'];
-            //             $xdocument->kind_sign = $document['kind_sign'];
-            //             $xdocument->documentable_id = $model->id;
-            //             $xdocument->documentable_type = 'App\Models\Teacher';
-            //             $xdocument->save();
-            //         }
-            //     }
-            // }
+                    if ($xdocument) {
+                        $xdocument->kind = $document['kind'];
+                        $xdocument->kind_numb = $document['kind_numb'];
+                        $xdocument->kind_date = $document['kind_date'];
+                        $xdocument->kind_sign = $document['kind_sign'];
+                        $xdocument->documentable_id = $model->id;
+                        $xdocument->documentable_type = 'App\Models\Teacher';
+                        $xdocument->save();
+                    }
+                }
+            }
 
-            // if ($request->verify && count($request->verify)) {
-            //     $xdocument = Document::find($request->verify['id']);
+            if ($request->verify && count($request->verify)) {
+                $xdocument = Document::find($request->verify['id']);
 
-            //     if ($xdocument) {
-            //         $xdocument->kind = 'VERIFICATION';
-            //         $xdocument->documentable_id = $model->id;
-            //         $xdocument->documentable_type = 'App\Models\Teacher';
-            //         $xdocument->save();
+                if ($xdocument) {
+                    $xdocument->kind = 'VERIFICATION';
+                    $xdocument->documentable_id = $model->id;
+                    $xdocument->documentable_type = 'App\Models\Teacher';
+                    $xdocument->save();
 
-            //         $model->user_id = $request->user()->id;
-            //         $model->verified = true;
-            //         $model->save();
-            //     }
-            // }
+                    $model->user_id = $request->user()->id;
+                    $model->verified = true;
+                    $model->save();
+                }
+            }
 
             if ($request->subjects && count($request->subjects)) {
                 $subjects = [];

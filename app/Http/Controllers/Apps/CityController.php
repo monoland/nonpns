@@ -97,7 +97,7 @@ class CityController extends Controller
     public function bulkdelete(Request $request)
     {
         $this->authorize('bulkDelete', City::class);
-        
+
         return City::bulkDelete($request);
     }
 
