@@ -25,9 +25,11 @@ class KCDLebakUpdateSeeder extends Seeder
                 foreach ($nominatives as $nominative) {
                     $teacher = Teacher::find($nominative->teacher_id);
 
-                    $nominative->school_id = $teacher->school_id;
-                    $nominative->subject = $teacher->subjects->pluck('name')->first();
-                    $nominative->save();
+                    if ($teacher) {
+                        $nominative->school_id = $teacher->school_id;
+                        $nominative->subject = $teacher->subjects->pluck('name')->first();
+                        $nominative->save();
+                    }
                 }
             }
         }
