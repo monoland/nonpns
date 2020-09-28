@@ -216,6 +216,10 @@ class Teacher extends Model
                 return false;
             }
 
+            if (!$model->updated) {
+                return false;
+            }
+
             $model->nik = $request->nik;
             $model->front_title = $request->front_title;
             $model->name = $request->name;
@@ -233,7 +237,6 @@ class Teacher extends Model
             $model->merried = $request->merried['value'];
             $model->education_id = $request->education['value'];
             $model->register = $request->register;
-            $model->updated = true;
 
             $school = School::find($request->school['value']);
             if ($school) {
