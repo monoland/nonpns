@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(SMASeeder::class);
         // $this->call(SMKSeeder::class);
 
-        $this->call(UrgentSeeder::class);
+        // $this->call(UrgentSeeder::class);
+        $this->call(KCDLebakUpdateSeeder::class);
     }
 }
