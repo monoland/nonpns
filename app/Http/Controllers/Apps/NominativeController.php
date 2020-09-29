@@ -22,6 +22,9 @@ class NominativeController extends Controller
 
         // return new NominativeCollection($nominatives);
 
-        return new NominativeCollection($school->nominatives()->whereNotIn('teacher_id', $registers)->orderBy('serial')->get());
+        return new NominativeCollection($school->nominatives()
+            ->where('active', true)
+            ->whereNotIn('teacher_id', $registers)
+            ->orderBy('serial')->get());
     }
 }
