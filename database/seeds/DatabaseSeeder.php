@@ -27,5 +27,9 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(UrgentSeeder::class);
         $this->call(KCDLebakUpdateSeeder::class);
+        $this->call(KCDPandeglangUpdateSeeder::class);
+        $this->call(KCDSeragonUpdateSeeder::class);
+        $this->call(KCDKabtangUpdateSeeder::class);
+        $this->call(KCDKotangselUpdateSeeder::class);
     }
 }

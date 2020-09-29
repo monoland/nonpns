@@ -5,7 +5,7 @@ use App\Models\Nominative;
 use App\Models\Teacher;
 use Illuminate\Database\Seeder;
 
-class KCDLebakUpdateSeeder extends Seeder
+class KCDKabtangUpdateSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class KCDLebakUpdateSeeder extends Seeder
      */
     public function run()
     {
-        $branch = Branch::find(1);
+        $branch = Branch::find(4);
 
         if ($branch) {
             $schools = $branch->schools;
