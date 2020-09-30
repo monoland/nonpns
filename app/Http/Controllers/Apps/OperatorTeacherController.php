@@ -74,7 +74,7 @@ class OperatorTeacherController extends Controller
             'documents' => 'required',
         ]);
 
-        // return Teacher::updateRecord($request, $teacher);
+        return Teacher::updateRecord($request, $teacher);
     }
 
     /**
