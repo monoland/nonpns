@@ -212,9 +212,9 @@ class Teacher extends Model
         DB::beginTransaction();
 
         try {
-            // if ($request->user()->isOperator()) {
-            //     return false;
-            // }
+            if ($request->user()->isOperator()) {
+                return false;
+            }
 
             if (!$model->updated) {
                 return false;
