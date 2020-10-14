@@ -61,7 +61,7 @@
             </v-row>
         </v-page-form>
 
-        <v-row id="print-qrcode" style="display: none;">
+        <v-row id="print-qrcode" v-if="qrToggle" style="display: none;">
             <template v-for="(item, index) in teachers">
                 <div class="pagesplit" :key="index">
                     <table>
@@ -434,7 +434,8 @@ export default {
     },
 
     data:() => ({
-        teachers: []
+        teachers: [],
+        qrToggle: false
     }),
 
     created() {
@@ -481,8 +482,10 @@ export default {
         },
 
         printQrCode: async function() {
+            this.qrToggle = false;
             let { data } = await this.http.get(`/api/school/${this.table.selected[0].id}/nominative`);
             this.teachers = data;
+            this.qrToggle = true;
 
             setTimeout(() => {
             

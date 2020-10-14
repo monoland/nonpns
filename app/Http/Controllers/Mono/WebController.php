@@ -45,9 +45,6 @@ class WebController extends Controller
     public function verify($code)
     {
         $nominative = Nominative::with(['teacher', 'school'])->where('shorturl', $code)->first();
-        // Cache::rememberForever("shorten.$code", function () use ($code) {
-        //     return Nominative::with(['teacher', 'school'])->where('shorturl', $code)->first();
-        // });
 
         if ($nominative) {
             return new VerifyResource($nominative);
