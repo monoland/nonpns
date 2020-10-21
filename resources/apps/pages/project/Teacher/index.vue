@@ -161,6 +161,21 @@
 
                 <v-col cols="12">
                     <v-combobox
+                        label="Mata Pelajaran"
+                        :items="subjects"
+                        :color="$root.theme"
+                        :search-input.sync="mapelsync"
+                        @change="mapelsync = null"
+                        v-model="record.subjects"
+                        hide-selected
+                        multiple
+                        chips
+                        deletable-chips
+                    ></v-combobox>
+                </v-col>
+
+                <v-col cols="12">
+                    <v-combobox
                         label="Unit Kerja"
                         :items="schools"
                         :color="$root.theme"
@@ -188,6 +203,14 @@ export default {
         schools: function() {
             if (this.combos && this.combos.hasOwnProperty('schools')) {
                 return this.combos.schools;
+            }
+
+            return [];
+        },
+
+        subjects: function() {
+            if (this.combos && this.combos.hasOwnProperty('subjects')) {
+                return this.combos.subjects;
             }
 
             return [];
@@ -224,6 +247,8 @@ export default {
             { text: 'Pendidik', value: 'Pendidik' },
             { text: 'Tenaga Kependidikan', value: 'Tenaga Kependidikan' },
         ],
+
+        mapelsync: null,
     }),
 
     created() {
