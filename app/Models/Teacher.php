@@ -216,9 +216,9 @@ class Teacher extends Model
                 return false;
             }
 
-            if (!$model->updated) {
-                return false;
-            }
+            // if (!$model->updated) {
+            //     return false;
+            // }
 
             $model->nik = $request->nik;
             $model->front_title = $request->front_title;
@@ -306,6 +306,14 @@ class Teacher extends Model
                 }
 
                 $model->subjects()->sync($subjects);
+
+                $nominative = $model->nominative;
+
+                if ($nominative) {
+                    $nominative->school_id = $model->school_id;
+                    $nominative->subject = $model->subjects->pluck('name')->first();
+                    $nominative->save();
+                }
             }
 
             DB::commit();
