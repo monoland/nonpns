@@ -42,4 +42,6 @@ Route::middleware(['api', 'auth:api'])->group(function () {
     Route::resource('school.user', 'Apps\SchoolUserController')->only(['index', 'store', 'update', 'destroy']);
     Route::resource('requirement', 'Apps\RequirementController')->only(['index', 'store', 'show', 'update', 'destroy']);
     Route::resource('teacher', 'Apps\OperatorTeacherController')->only(['index', 'store', 'show', 'update', 'destroy']);
+
+    Route::get('export', 'Apps\BranchController@export');
 });

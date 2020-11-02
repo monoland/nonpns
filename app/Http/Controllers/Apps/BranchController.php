@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Apps;
 
+use App\Exports\TeacherExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchCollection;
 use App\Http\Resources\BranchReports;
@@ -9,6 +10,7 @@ use App\Http\Resources\NominativeCollection;
 use App\Models\Branch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BranchController extends Controller
 {
@@ -148,5 +150,10 @@ class BranchController extends Controller
                 ->orderBy('serial')
                 ->get()
         );
+    }
+
+    public function export()
+    {
+        return Excel::download(new TeacherExport, 'teachers.xlsx');
     }
 }
