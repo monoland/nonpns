@@ -139,13 +139,9 @@ class BranchController extends Controller
     {
         // return $branch->schools;
         // return BranchReports::collection($branch->schools);
-        Excel::store(new RequirementExport($branch->schools), $branch->name . '.xlsx');
-
-        foreach ($branch->schools as $school) {
-            if ($school->balance > 0) {
-                dd($school);
-            }
-        }
+        // if (Excel::store(new RequirementExport($branch->schools), $branch->name . '.xlsx')) {
+        // }
+        return Excel::download(new RequirementExport($branch->schools), $branch->name . '.xlsx');
     }
 
     public function receipt(Branch $branch)
