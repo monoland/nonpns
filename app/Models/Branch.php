@@ -63,7 +63,7 @@ class Branch extends Model
     /**
      * Undocumented function
      *
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
     public function schools()
     {

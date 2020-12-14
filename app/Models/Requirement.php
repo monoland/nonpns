@@ -2,18 +2,12 @@
 
 namespace App\Models;
 
-// use App\Http\Resources\RequirementResource;
-
 use App\Http\Resources\RequirementResource;
-use App\Traits\HasMetaField;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Requirement extends Model
 {
-    // use HasMetaField, SoftDeletes;
-
     /**
      * Indicates if the IDs are auto-incrementing.
      *

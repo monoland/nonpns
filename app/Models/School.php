@@ -118,7 +118,7 @@ class School extends Model
      */
     public function getRequireAttribute()
     {
-        return $this->requirements()->sum('require');
+        return $this->requirements()->where('balance', '>', 0)->sum('require');
     }
 
     /**
@@ -128,7 +128,7 @@ class School extends Model
      */
     public function getAvailableAttribute()
     {
-        return $this->requirements()->sum('available');
+        return $this->requirements()->where('balance', '>', 0)->sum('available');
     }
 
     /**
@@ -138,7 +138,7 @@ class School extends Model
      */
     public function getHonorerAttribute()
     {
-        return $this->requirements()->sum('honorer');
+        return $this->requirements()->where('balance', '>', 0)->sum('honorer');
     }
 
     /**
@@ -148,7 +148,7 @@ class School extends Model
      */
     public function getBalanceAttribute()
     {
-        return $this->requirements()->sum('balance');
+        return $this->requirements()->where('balance', '>', 0)->sum('balance');
     }
 
     /**

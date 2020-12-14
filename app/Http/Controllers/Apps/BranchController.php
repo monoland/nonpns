@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Apps;
 
+use App\Exports\RequirementExport;
 use App\Exports\TeacherExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchCollection;
@@ -136,7 +137,15 @@ class BranchController extends Controller
      */
     public function reports(Request $request, Branch $branch)
     {
-        return BranchReports::collection($branch->schools);
+        // return $branch->schools;
+        // return BranchReports::collection($branch->schools);
+        Excel::store(new RequirementExport($branch->schools), $branch->name . '.xlsx');
+
+        foreach ($branch->schools as $school) {
+            if ($school->balance > 0) {
+                dd($school);
+            }
+        }
     }
 
     public function receipt(Branch $branch)
