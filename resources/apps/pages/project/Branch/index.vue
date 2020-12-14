@@ -313,11 +313,11 @@ export default {
             name: null,
         });
 
-        this.setAfterSelected(async (selected) => {
-            let { data } = await this.http.get(`/api/branch/${selected.id}/reports`);
+        // this.setAfterSelected(async (selected) => {
+        //     let { data } = await this.http.get(`/api/branch/${selected.id}/reports`);
 
-            this.reports = data;
-        });
+        //     this.reports = data;
+        // });
     },
 
     methods: {
@@ -362,38 +362,49 @@ export default {
             }, 1500);
         },
 
-        printRequired: function() {
-            let win = window.open('', 'PRINT', 'height=600,width=1024');
-                win.document.write('<html>');
-                win.document.write('<head>');
-                win.document.write('<title>Print Preview</title>');
-                win.document.write('</head>');
-                win.document.write('<body>');
-                win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
-                win.document.write('<div class="v-application--wrap">');
-                win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
-                win.document.write('<div class="v-content__wrap">');
-                win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
-                win.document.write(document.getElementById('print-data').innerHTML);
-                win.document.write('</div>');
-                win.document.write('</div>');
-                win.document.write('</main>');
-                win.document.write('</div>');
-                win.document.write('</div>');
-                win.document.write('</body>');
-                win.document.write('</html>');
+        printRequired: async function() {
+            await this.http.get(`/api/branch/${this.record.id}/reports`, { responseType: 'blob' }).then((response) => {
+                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                var fileLink = document.createElement('a');
 
-            let css = win.document.createElement('link');
-                css.type = 'text/css';
-                css.rel = 'stylesheet';
-                css.href = '/styles/monoland.css?version=1'; 
-                css.media = 'all';
-                win.document.getElementsByTagName("head")[0].appendChild(css);
+                fileLink.href = fileURL;
+                fileLink.setAttribute('download', `${this.record.name}.xlsx`);
+                document.body.appendChild(fileLink);
+
+                fileLink.click();
+            });
+
+            // let win = window.open('', 'PRINT', 'height=600,width=1024');
+            //     win.document.write('<html>');
+            //     win.document.write('<head>');
+            //     win.document.write('<title>Print Preview</title>');
+            //     win.document.write('</head>');
+            //     win.document.write('<body>');
+            //     win.document.write('<div data-app="true" class="v-application v-application--is-ltr theme--light" style="background: #FFFFFF;">');
+            //     win.document.write('<div class="v-application--wrap">');
+            //     win.document.write('<main class="v-content" data-booted="true" style="padding: 0px 0px 0px 0px;">');
+            //     win.document.write('<div class="v-content__wrap">');
+            //     win.document.write('<div class="row print-area" style="padding: 0px; margin: 0px; background-color: #FFFFFF;">');
+            //     win.document.write(document.getElementById('print-data').innerHTML);
+            //     win.document.write('</div>');
+            //     win.document.write('</div>');
+            //     win.document.write('</main>');
+            //     win.document.write('</div>');
+            //     win.document.write('</div>');
+            //     win.document.write('</body>');
+            //     win.document.write('</html>');
+
+            // let css = win.document.createElement('link');
+            //     css.type = 'text/css';
+            //     css.rel = 'stylesheet';
+            //     css.href = '/styles/monoland.css?version=1'; 
+            //     css.media = 'all';
+            //     win.document.getElementsByTagName("head")[0].appendChild(css);
             
-            setTimeout(() => {
-                win.document.close();
-                win.focus();
-            }, 500);
+            // setTimeout(() => {
+            //     win.document.close();
+            //     win.focus();
+            // }, 500);
         },
 
         printQrCode: async function() {

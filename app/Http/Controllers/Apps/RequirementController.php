@@ -39,7 +39,7 @@ class RequirementController extends Controller
             'available' => 'required|integer'
         ]);
 
-        return Requirement::storeRecord($request, School::find($request->user()->userable->id));
+        // return Requirement::storeRecord($request, School::find($request->user()->userable->id));
     }
 
     /**
@@ -69,7 +69,7 @@ class RequirementController extends Controller
             'available' => 'required|integer'
         ]);
 
-        return Requirement::updateRecord($request, $requirement);
+        // return Requirement::updateRecord($request, $requirement);
     }
 
     /**
@@ -82,7 +82,7 @@ class RequirementController extends Controller
     {
         $this->authorize('delete', $requirement);
 
-        return Requirement::destroyRecord($requirement);
+        // return Requirement::destroyRecord($requirement);
     }
 
     /**
