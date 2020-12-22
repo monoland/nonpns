@@ -72,12 +72,20 @@ class Branch extends Model
 
     /**
      * Undocumented function
-     *
-     * @return void
      */
     public function teachers()
     {
         return $this->hasMany(Teacher::class);
+    }
+
+    public function verifieds()
+    {
+        return $this->teachers()->where('verified', true);
+    }
+
+    public function matches()
+    {
+        return $this->teachers()->where('dapodik', true)->where('verified', true);
     }
 
     public function nominatives()
