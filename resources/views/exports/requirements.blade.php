@@ -14,7 +14,7 @@
         @foreach($schools as $school)
             @if($school->balance > 0)
             <tr>
-                <td colspan="2">{{ $school->name }}</td>
+                <td>{{ $school->name }}</td>
                 <td>{{ $school->name }}</td>
                 <td>{{ $school->require }}</td>
                 <td>{{ $school->available }}</td>
