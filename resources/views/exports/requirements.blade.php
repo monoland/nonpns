@@ -1,7 +1,8 @@
 <table>
     <thead>
         <tr>
-            <th colspan="2">NAMA SEKOLAH</th>
+            <th>NAMA SEKOLAH</th>
+            <th></th>
             <th>Jenis</th>
             <th>Kebutuhan</th>
             <th>Tersedia ASN</th>
