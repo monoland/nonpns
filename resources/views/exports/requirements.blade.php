@@ -24,7 +24,7 @@
 
                 @foreach($school->requirements()->with('subject')->where('balance', '>', 0)->get() as $requirement)
                 <tr>
-                    <td></td>
+                    <td>{{ $school->name }}</td>
                     <td>{{ $requirement->subject->name }}</td>
                     <td>{{ $requirement->status }}</td>
                     <td>{{ $requirement->require }}</td>
