@@ -1,8 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th>NAMA SEKOLAH</th>
-            <th></th>
+            <th colspan="2">NAMA SEKOLAH</th>
             <th>Jenis</th>
             <th>Kebutuhan</th>
             <th>Tersedia ASN</th>
@@ -15,8 +14,8 @@
         @foreach($schools as $school)
             @if($school->balance > 0)
             <tr>
-                <td>{{ $school->name }}</td>
-                <td>{{ $school->name }}</td>
+                <td colspan="2">{{ $school->name }}</td>
+                <td></td>
                 <td>{{ $school->require }}</td>
                 <td>{{ $school->available }}</td>
                 <td>{{ $school->honorer }}</td>
