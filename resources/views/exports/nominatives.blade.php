@@ -21,7 +21,7 @@
             <td>{{ $nominative->nik }}</td>
             <td>{{ $nominative->status }}</td>
             <td>{{ $nominative->education->name }}</td>
-            <td>{{ $nominative->subject->name }}</td>
+            <td>{{ optional($nominative->subject->first())->name }}</td>
             <td>{{ $nominative->school->name }}</td>
         </tr>
         @endforeach
