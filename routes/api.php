@@ -33,6 +33,7 @@ Route::middleware(['api', 'auth:api'])->group(function () {
     Route::resource('subject', 'Apps\SubjectController')->only(['index', 'store', 'update', 'destroy']);
     Route::get('branch/{branch}/receipt', 'Apps\BranchController@receipt');
     Route::get('branch/{branch}/reports', 'Apps\BranchController@reports');
+    Route::get('branch/{branch}/nominative', 'Apps\BranchController@nominative');
     Route::resource('branch', 'Apps\BranchController')->only(['index', 'store', 'update', 'destroy']);
     Route::post('school/{school}/reset', 'Apps\SchoolController@resetPassword');
     Route::resource('branch.school', 'Apps\SchoolController')->only(['index', 'store', 'update', 'destroy']);

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Apps;
 
-use App\Exports\RequirementExport;
-use App\Exports\TeacherExport;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\BranchCollection;
-use App\Http\Resources\BranchReports;
-use App\Http\Resources\NominativeCollection;
 use App\Models\Branch;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use App\Exports\TeacherExport;
+use App\Exports\NominativeExport;
+use App\Exports\RequirementExport;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Resources\BranchReports;
+use App\Http\Resources\BranchCollection;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\NominativeCollection;
 
 class BranchController extends Controller
 {
@@ -160,5 +161,10 @@ class BranchController extends Controller
     public function export()
     {
         return Excel::download(new TeacherExport, 'teachers.xlsx');
+    }
+
+    public function nominative(Branch $branch)
+    {
+        return Excel::download(new NominativeExport($branch), $branch->slug . '.xlsx');
     }
 }

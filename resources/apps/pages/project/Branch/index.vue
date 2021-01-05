@@ -438,17 +438,18 @@ export default {
             }, 500);
         },
 
-        printReport: function() {
-            this.http.get('/api/export', { responseType: 'blob' }).then((response) => {
+        printReport: async function() {
+            await this.http.get(`/api/branch/${this.record.id}/nominative`, { responseType: 'blob' }).then((response) => {
                 var fileURL = window.URL.createObjectURL(new Blob([response.data]));
                 var fileLink = document.createElement('a');
 
                 fileLink.href = fileURL;
-                fileLink.setAttribute('download', 'teachers.xlsx');
+                fileLink.setAttribute('download', `${this.record.name}.xlsx`);
                 document.body.appendChild(fileLink);
 
                 fileLink.click();
             });
+
             // if (this.table.selected.length > 0) {
             //     let { data: { additional: { info }, data } } = await this.http.get(`/api/branch/${this.table.selected[0].id}/teacher`);
 
