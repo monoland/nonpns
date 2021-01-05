@@ -20,7 +20,7 @@
             <td>{{ $nominative->born_place . ',' . $nominative->born_date }}</td>
             <td>'{{ $nominative->nik }}</td>
             <td>{{ $nominative->status }}</td>
-            <td>{{ $nominative->education->name }}</td>
+            <td>{{ optional($nominative->education)->name }}</td>
             <td>{{ optional($nominative->subject->first())->name }}</td>
             <td>{{ $nominative->school->name }}</td>
         </tr>
