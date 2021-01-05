@@ -444,7 +444,7 @@ export default {
                 var fileLink = document.createElement('a');
 
                 fileLink.href = fileURL;
-                fileLink.setAttribute('download', `Nominative - ${this.record.slug}.xlsx`);
+                fileLink.setAttribute('download', `Nominative - ${this.record.name}.xlsx`);
                 document.body.appendChild(fileLink);
 
                 fileLink.click();
