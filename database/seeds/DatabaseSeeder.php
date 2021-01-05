@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(KCDKotangselUpdateSeeder::class);
         // $this->call(RecapAllKCD::class);
         // $this->call(DapodikExistingCheck::class);
-        $this->call(CountDataOfTeacher::class);
-        // $this->call(PrintedMarked::class);
+        // $this->call(CountDataOfTeacher::class);
+        $this->call(PrintedMarked::class);
     }
 }
